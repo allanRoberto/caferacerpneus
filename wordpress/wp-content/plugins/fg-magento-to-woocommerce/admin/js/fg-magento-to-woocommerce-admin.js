@@ -187,6 +187,29 @@
 	    },
 	    
 	    /**
+	     * Refresh the list of stores
+	     * 
+	     * @returns {Boolean}
+	     */
+	    refresh_stores: function() {
+		// Start displaying the logs
+		that.start_logger();
+		$('#refresh_stores').attr('disabled', 'disabled'); // Disable the button
+		
+		var data = $('#form_import').serialize() + '&action=' + that.plugin_id + '_import&plugin_action=refresh_stores';
+		$.ajax({
+		    method: "POST",
+		    url: ajaxurl,
+		    data: data
+		}).done(function(result) {
+		    that.stop_logger();
+		    $('#refresh_stores').removeAttr('disabled'); // Enable the button
+		    $('#store').html(result);
+		});
+		return false;
+	    },
+	    
+	    /**
 	     * Save the settings
 	     * 
 	     * @returns {Boolean}
@@ -274,6 +297,48 @@
 		return false;
 	    },
 	    
+	    /**
+	     * Update the products
+	     * 
+	     * @returns {Boolean}
+	     */
+	    update: function() {
+		that.fatal_error = '';
+		// Start displaying the logs
+		that.start_logger();
+		
+		// Disable the import button
+		$('#update').attr('disabled', 'disabled');
+		// Show the stop button
+		$('#stop-import').show();
+		// Clear the action message
+		$('#action_message').html('');
+		
+		// Run the import
+		var data = $('#form_import').serialize() + '&action=' + that.plugin_id + '_import&plugin_action=update';
+		$.ajax({
+		    method: "POST",
+		    url: ajaxurl,
+		    data: data
+		}).done(function(result) {
+		    if (result) {
+			that.fatal_error = result;
+		    }
+		    that.stop_logger();
+		    that.reactivate_update_button();
+		});
+		return false;
+	    },
+	    
+	    /**
+	     * Reactivate the update button
+	     * 
+	     */
+	    reactivate_update_button: function() {
+		$('#update').removeAttr('disabled');
+		$('#stop-import').hide();
+	    },
+	    
 	};
 	
 	/**
@@ -303,6 +368,9 @@
 	    // Test database button
 	    $('#test_database').click(that.test_database);
 	    
+	    // Refresh stores button
+	    $('#refresh_stores').click(that.refresh_stores);
+	    
 	    // Save settings button
 	    $('#save').click(that.save);
 	    
@@ -311,6 +379,9 @@
 	    
 	    // Stop import button
 	    $('#stop-import').click(that.stop_import);
+	    
+	    // Update button
+	    $('#update').click(that.update);
 	    
 	    // Display the logs
 	    $('#logger_autorefresh').click(that.display_logs);

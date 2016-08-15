@@ -16,7 +16,7 @@
  * Plugin Name:       FG Magento to WooCommerce
  * Plugin URI:        https://wordpress.org/plugins/fg-magento-to-woocommerce/
  * Description:       A plugin to migrate categories, products, images and CMS from Magento to WooCommerce
- * Version:           2.1.0
+ * Version:           2.4.0
  * Author:            Frédéric GILLES
  * Author URI:        http://www.fredericgilles.net/
  * License:           GPL-2.0+

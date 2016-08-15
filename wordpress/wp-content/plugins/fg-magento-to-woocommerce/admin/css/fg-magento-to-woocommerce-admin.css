@@ -84,3 +84,6 @@
 #label_logger_autorefresh {
     float: right;
 }
+p.submit {
+    display: inline-block;
+}

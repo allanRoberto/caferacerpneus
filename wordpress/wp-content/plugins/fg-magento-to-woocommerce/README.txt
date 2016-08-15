@@ -1,10 +1,10 @@
 === FG Magento to WooCommerce ===
 Contributors: Frédéric GILLES
 Plugin Uri: https://wordpress.org/plugins/fg-magento-to-woocommerce/
-Tags: magento, woocommerce, wordpress, importer, convert magento to wordpress, migrate magento to wordpress, magento to wordpress migration, migrator, converter, import
+Tags: magento, woocommerce, importer, convert magento to wordpress, migrate magento to wordpress, magento to wordpress migration, migrator, converter, import
 Requires at least: 4.4
 Tested up to: 4.5.3
-Stable tag: 2.1.0
+Stable tag: 2.4.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fred%2egilles%40free%2efr&lc=FR&item_name=fg-magento-to-woocommerce&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
@@ -35,11 +35,14 @@ The **Premium version** includes these extra features:
 
 * migrates the product attributes
 * migrates the product variations
+* migrates the grouped products
 * migrates the users
 * migrates the customers
 * authenticate the users and the customers in WordPress with their Magento passwords
 * migrates the orders
 * migrates the SEO meta data
+* multistores: Option to choose which store to import
+* update the already imported products stocks and orders
 
 The Premium version can be purchased on: http://www.fredericgilles.net/fg-magento-to-woocommerce/
 
@@ -124,6 +127,18 @@ http://wordpress.org/support/plugin/fg-magento-to-woocommerce
 * other can be translated
 
 == Changelog ==
+
+= 2.4.0 =
+* Fixed: CMS pages from all languages were imported
+* Fixed: Notice: Undefined index: name
+* Tweak: Refactor some functions to allow multilingual import by the WPML addon
+
+= 2.3.0 =
+* Fixed: PHP Notice: Object of class WP_Error could not be converted to int
+* Fixed: Notice: Undefined index: url_key
+
+= 2.2.0 =
+* New: Import the product featured images
 
 = 2.1.0 =
 * Fixed: Display an error message when the process hangs
@@ -222,6 +237,18 @@ http://wordpress.org/support/plugin/fg-magento-to-woocommerce
 
 == Upgrade Notice ==
 
+= 2.4.0 =
+Fixed: CMS pages from all languages were imported
+Fixed: Notice: Undefined index: name
+Tweak: Refactor some functions to allow multilingual import by the WPML addon
+
+= 2.3.0 =
+Fixed: PHP Notice: Object of class WP_Error could not be converted to int
+Fixed: Notice: Undefined index: url_key
+
+= 2.2.0 =
+New: Import the product featured images
+
 = 2.1.0 =
 Fixed: Display an error message when the process hangs
 Tweak: Increase the speed of counting the terms
@@ -234,83 +261,3 @@ New: Add a logger frame to see the logs in real time
 New: Ability to stop the import
 New: Compatible with PHP 7
 New: Compatible with WooCommerce 2.6.0
-
-= 1.13.4 =
-Fixed: The products without stock were not imported
-
-= 1.13.2 =
-Fixed: Products belonging to several bundles were imported as duplicates
-
-= 1.13.1 =
-Fixed: Some descriptions were not imported correctly
-Tested with WordPress 4.5.2
-
-= 1.12.1 =
-Fixed: Compatibility issues with Magento 1.3
-Tested with WordPress 4.5.1
-
-= 1.12.0 =
-Tested with WordPress 4.5
-
-= 1.10.2 =
-Fixed: Notice: Undefined index: short_description
-Fixed: Column 'post_excerpt' cannot be null
-
-= 1.10.1 =
-Fixed: Products not imported. Error: "WordPress database error Column 'post_content' cannot be null"
-
-= 1.9.1 =
-Tested with WordPress 4.4.2
-
-= 1.8.4 =
-Tested with WordPress 4.4.1
-
-= 1.8.2 =
-Fixed: Fatal error: Call to undefined function add_term_meta()
-
-= 1.8.1 =
-Fixed: Better clean the taxonomies cache
-
-= 1.8.0 =
-Tweak: Optimize the termmeta table
-
-= 1.7.0 =
-Tweak: Use the WordPress 4.4 term metas
-
-= 1.6.1 =
-Tested with WordPress 4.4
-
-= 1.6.0 =
-New: Compatibility with Magento 1.3
-
-= 1.5.0 =
-New: Add a link to the FAQ in the connection error message
-
-= 1.4.0 =
-New: Add an Import link on the plugins list page
-Tweak: Code refactoring
-
-= 1.3.1 =
-Fixed: Refresh the display of the product categories
-Fixed: Error: 1054 Unknown column 'e.store_id' in 'where clause'
-
-= 1.2.1 =
-Fixed: Duplicate images
-Fixed: Avoid a double slash in the media filename
-Fixed: Import the original category name instead of the translation
-Fixed: Notice: Undefined index: url_key
-
-= 1.2.0 =
-New: Compatible with Magento 1.4 to 1.9
-New: Support the table prefix
-Fixed: Don't import the child products as single products
-
-= 1.1.0 =
-Tweak: Change the range of get_attribute_values()
-Tweak: Make the argument $required_attributes optional
-
-= 1.0.1 =
-Tested with WordPress 4.3.1
-
-= 1.0.0 =
-Initial version: Import Magento product categories, products, images and CMS

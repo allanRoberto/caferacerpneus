@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FG Magento to WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-16 14:28+0200\n"
-"PO-Revision-Date: 2016-06-16 14:28+0200\n"
+"POT-Creation-Date: 2016-07-15 18:08+0200\n"
+"PO-Revision-Date: 2016-07-15 18:08+0200\n"
 "Last-Translator: F. GILLES\n"
 "Language-Team: F. GILLES\n"
 "Language: fr_FR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:110
+#: admin/class-fg-magento-to-woocommerce-admin.php:112
 msgid ""
 "All new imported posts or pages and their comments will be deleted from "
 "WordPress."
@@ -25,77 +25,77 @@ msgstr ""
 "Tous les nouveaux articles ou pages importés vont être supprimés de "
 "WordPress."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:111
+#: admin/class-fg-magento-to-woocommerce-admin.php:113
 msgid "All content will be deleted from WordPress."
 msgstr "Toutes les données vont être supprimées de WordPress."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:112
+#: admin/class-fg-magento-to-woocommerce-admin.php:114
 msgid "Please select a remove option."
 msgstr "Veuillez sélectionner une option de suppression."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:113
+#: admin/class-fg-magento-to-woocommerce-admin.php:115
 msgid "IMPORT COMPLETE"
 msgstr "IMPORT TERMINÉ"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:114
+#: admin/class-fg-magento-to-woocommerce-admin.php:116
 msgid "Content removed from WordPress"
 msgstr "Contenu supprimé de WordPress"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:115
-#: admin/class-fg-magento-to-woocommerce-admin.php:294
+#: admin/class-fg-magento-to-woocommerce-admin.php:117
+#: admin/class-fg-magento-to-woocommerce-admin.php:298
 msgid "Settings saved"
 msgstr "Paramètres enregistrés"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:116
+#: admin/class-fg-magento-to-woocommerce-admin.php:118
 msgid "Importing…"
 msgstr "En cours d'import…"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:117
+#: admin/class-fg-magento-to-woocommerce-admin.php:119
 msgid "IMPORT STOPPED BY USER"
 msgstr "IMPORT ARRÊTÉ PAR L'UTILISATEUR"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:130
+#: admin/class-fg-magento-to-woocommerce-admin.php:132
 msgid "Magento"
 msgstr "Magento"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:130
+#: admin/class-fg-magento-to-woocommerce-admin.php:132
 msgid "Import Magento e-commerce solution to WooCommerce"
 msgstr "Importer la boutique en ligne Magento vers WooCommerce"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:268
+#: admin/class-fg-magento-to-woocommerce-admin.php:272
 msgid "The wp-content directory must be writable."
 msgstr "Le répertoire wp-content doit avoir les permissions en écriture."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:273
+#: admin/class-fg-magento-to-woocommerce-admin.php:277
 #, php-format
 msgid "WordPress 4.4+ is required. Please <a href=\"%s\">update WordPress</a>."
 msgstr ""
 "WordPress 4.4+ est requis. Veuillez <a href=\"%s\">mettre à jour WordPress</"
 "a>."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:283
-#: admin/class-fg-magento-to-woocommerce-admin.php:319
+#: admin/class-fg-magento-to-woocommerce-admin.php:287
+#: admin/class-fg-magento-to-woocommerce-admin.php:323
 msgid "WordPress content removed"
 msgstr "Contenu supprimé de WordPress"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:285
-#: admin/class-fg-magento-to-woocommerce-admin.php:321
+#: admin/class-fg-magento-to-woocommerce-admin.php:289
+#: admin/class-fg-magento-to-woocommerce-admin.php:325
 msgid "Couldn't remove content"
 msgstr "Impossible de supprimer le contenu"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:304
+#: admin/class-fg-magento-to-woocommerce-admin.php:308
 msgid "Connection successful"
 msgstr "Connexion réussie"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:306
+#: admin/class-fg-magento-to-woocommerce-admin.php:310
 msgid "Connection failed"
 msgstr "Connexion échouée"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:351
+#: admin/class-fg-magento-to-woocommerce-admin.php:355
 msgid "Import Magento"
 msgstr "Import Magento"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:352
+#: admin/class-fg-magento-to-woocommerce-admin.php:356
 msgid ""
 "This plugin will import product categories, products, images and CMS from "
 "Magento to WooCommerce.<br />Compatible with Magento versions 1.3 to 1.9."
@@ -104,7 +104,7 @@ msgstr ""
 "et le CMS de Magento à WooCommerce.<br />Compatible avec Magento versions "
 "1.3 à 1.9."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:353
+#: admin/class-fg-magento-to-woocommerce-admin.php:357
 #, php-format
 msgid ""
 "For any issue, please read the <a href=\"%s\" target=\"_blank\">FAQ</a> "
@@ -113,61 +113,61 @@ msgstr ""
 "Pour toute question, veuillez d'abord lire la <a href=\"%s\" target=\"_blank"
 "\">FAQ</a>."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:384
+#: admin/class-fg-magento-to-woocommerce-admin.php:391
 #, php-format
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d article"
 msgstr[1] "%d articles"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:385
+#: admin/class-fg-magento-to-woocommerce-admin.php:392
 #, php-format
 msgid "%d page"
 msgid_plural "%d pages"
 msgstr[0] "%d page"
 msgstr[1] "%d pages"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:386
-#: admin/class-fg-magento-to-woocommerce-admin.php:789
+#: admin/class-fg-magento-to-woocommerce-admin.php:393
+#: admin/class-fg-magento-to-woocommerce-admin.php:792
 #, php-format
 msgid "%d product category"
 msgid_plural "%d product categories"
 msgstr[0] "%d catégorie de produit"
 msgstr[1] "%d catégories de produit"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:387
-#: admin/class-fg-magento-to-woocommerce-admin.php:793
+#: admin/class-fg-magento-to-woocommerce-admin.php:394
+#: admin/class-fg-magento-to-woocommerce-admin.php:796
 #, php-format
 msgid "%d product"
 msgid_plural "%d products"
 msgstr[0] "%d produit"
 msgstr[1] "%d produits"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:388
+#: admin/class-fg-magento-to-woocommerce-admin.php:395
 #, php-format
 msgid "%d media"
 msgid_plural "%d medias"
 msgstr[0] "%d média"
 msgstr[1] "%d médias"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:417
+#: admin/class-fg-magento-to-woocommerce-admin.php:424
 msgid "Instructions"
 msgstr "Instructions"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:423
+#: admin/class-fg-magento-to-woocommerce-admin.php:430
 msgid "Options"
 msgstr "Options"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:427
+#: admin/class-fg-magento-to-woocommerce-admin.php:434
 msgid "FAQ"
 msgstr "FAQ"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:457
+#: admin/class-fg-magento-to-woocommerce-admin.php:464
 msgid "PDO is required. Please enable it."
 msgstr "PDO est requis. Veuillez l'activer."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:466
-#: admin/class-fg-magento-to-woocommerce-admin.php:755
+#: admin/class-fg-magento-to-woocommerce-admin.php:473
+#: admin/class-fg-magento-to-woocommerce-admin.php:758
 msgid ""
 "Couldn't connect to the Magento database. Please check your parameters. And "
 "be sure the WordPress server can access the Magento database."
@@ -176,31 +176,31 @@ msgstr ""
 "vérifier vos paramètres. Et soyez certains que le serveur WordPress ait "
 "accès à la base de données de Magento."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:466
+#: admin/class-fg-magento-to-woocommerce-admin.php:473
 #, php-format
 msgid ""
 "Please read the <a href=\"%s\" target=\"_blank\">FAQ for the solution</a>."
 msgstr ""
 "Veuillez lire la <a href=\"%s\" target=\"_blank\">FAQ pour la solution</a>."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:492
-#: admin/class-fg-magento-to-woocommerce-admin.php:1081
+#: admin/class-fg-magento-to-woocommerce-admin.php:499
+#: admin/class-fg-magento-to-woocommerce-admin.php:1097
 msgid "Error:"
 msgstr "Erreur :"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:689
+#: admin/class-fg-magento-to-woocommerce-admin.php:692
 msgid "WooCommerce data deleted"
 msgstr "Données WooCommerce supprimées"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:694
+#: admin/class-fg-magento-to-woocommerce-admin.php:697
 msgid "WooCommerce default data created"
 msgstr "Données par défaut de WooCommerce créées"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:748
+#: admin/class-fg-magento-to-woocommerce-admin.php:751
 msgid "Connected with success to the Magento database"
 msgstr "Connecté avec succès à la base de données Magento"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:770
+#: admin/class-fg-magento-to-woocommerce-admin.php:773
 msgid ""
 "Error: the <a href=\"https://wordpress.org/plugins/woocommerce/\" target="
 "\"_blank\">WooCommerce plugin</a> must be installed and activated to import "
@@ -210,51 +210,51 @@ msgstr ""
 "\"_blank\">plugin WooCommerce</a> doit être installé et activé pour importer "
 "les produits."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:781
+#: admin/class-fg-magento-to-woocommerce-admin.php:784
 msgid "Magento data found:"
 msgstr "Données Magento trouvées :"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:785
+#: admin/class-fg-magento-to-woocommerce-admin.php:788
 #, php-format
 msgid "%d CMS page"
 msgid_plural "%d CMS pages"
 msgstr[0] "%d page CMS"
 msgstr[1] "%d pages CMS"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1095
+#: admin/class-fg-magento-to-woocommerce-admin.php:1111
 msgid "Importing articles..."
 msgstr "Import des articles..."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1190
+#: admin/class-fg-magento-to-woocommerce-admin.php:1149
 #, php-format
 msgid "%d article imported"
 msgid_plural "%d articles imported"
 msgstr[0] "%d article importé"
 msgstr[1] "%d articles importés"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1209
+#: admin/class-fg-magento-to-woocommerce-admin.php:1242
 msgid "Importing product categories..."
 msgstr "Import des catégories de produits..."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1313
+#: admin/class-fg-magento-to-woocommerce-admin.php:1300
 #, php-format
 msgid "%d product category imported"
 msgid_plural "%d product categories imported"
 msgstr[0] "%d catégorie de produit importée"
 msgstr[1] "%d catégories de produit importées"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1329
+#: admin/class-fg-magento-to-woocommerce-admin.php:1390
 msgid "Importing products..."
 msgstr "Import des produits..."
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:1452
+#: admin/class-fg-magento-to-woocommerce-admin.php:1420
 #, php-format
 msgid "%d product imported"
 msgid_plural "%d products imported"
 msgstr[0] "%d produit importé"
 msgstr[1] "%d produits importés"
 
-#: admin/class-fg-magento-to-woocommerce-admin.php:2369
+#: admin/class-fg-magento-to-woocommerce-admin.php:2431
 #, php-format
 msgid "%d media imported"
 msgid_plural "%d medias imported"
@@ -269,7 +269,7 @@ msgstr "Enregistrer les paramètres"
 msgid "Start / Resume the import"
 msgstr "Démarrer / continuer l'import"
 
-#: admin/partials/actions.php:6
+#: admin/partials/actions.php:5
 msgid "Stop import"
 msgstr "Arrêter l'import"
 
@@ -440,6 +440,24 @@ msgstr "migration des variations"
 msgid "SEO metadata"
 msgstr "métadonnées SEO"
 
+#: admin/partials/extra-features.php:10
+msgid "multistores"
+msgstr "multistores"
+
+#: admin/partials/extra-features.php:11
+msgid "multilingual content to WPML"
+msgstr "contenu multilingue vers WPML"
+
+#: admin/partials/extra-features.php:12
+msgid "update the products stocks and orders"
+msgstr "mise à jour des stocks de produits et des commandes"
+
+#: admin/partials/extra-features.php:17
+msgid "This feature needs an add-on in addition to the Premium version."
+msgstr ""
+"Cette fonctionnalité nécessite un module supplémentaire en plus de la "
+"version Premium."
+
 #: admin/partials/logger.php:3
 msgid "Log"
 msgstr "Log"
@@ -449,17 +467,17 @@ msgid "Log auto-refresh"
 msgstr "Rafraîchissement automatique des logs"
 
 #: admin/partials/paypal-donate.php:1
+#, php-format
 msgid ""
 "If you found this plugin useful and it saved you many hours or days, please "
-"rate it on <a href=\"https://wordpress.org/support/view/plugin-reviews/fg-"
-"magento-to-woocommerce\" target=\"_blank\">FG Magento to WooCommerce</a>. "
-"You can also make a donation using the button below."
+"rate it on %s."
 msgstr ""
-"Si vous avez trouvé ce plugin utile et qu'il vous a fait gagner de "
-"précieuses heures ou jours, merci de le noter sur <a href=\"https://"
-"wordpress.org/support/view/plugin-reviews/fg-magento-to-woocommerce\" target="
-"\"_blank\">FG Magento to WooCommerce</a>. Vous pouvez aussi faire un don en "
-"utilisant le bouton ci-dessous."
+"Si vous avez trouvé ce plug-in utile et qu'il vous a fait gagner plusieurs "
+"heures ou jours, merci de le noter sur %s."
+
+#: admin/partials/paypal-donate.php:1
+msgid "You can also make a donation using the button below."
+msgstr "Vous pouvez également faire un don en utilisant le bouton ci-dessous."
 
 #: admin/partials/settings.php:2
 msgid "Automatic removal:"
@@ -509,9 +527,24 @@ msgstr "Préfixe des tables Magento"
 msgid "Test the database connection"
 msgstr "Tester la connexion à la base de données"
 
-#: includes/class-fg-magento-to-woocommerce.php:200
+#: includes/class-fg-magento-to-woocommerce.php:201
 msgid "Import"
 msgstr "Importer"
+
+#~ msgid ""
+#~ "If you found this plugin useful and it saved you many hours or days, "
+#~ "please rate it on <a href=\"https://wordpress.org/support/view/plugin-"
+#~ "reviews/fg-magento-to-woocommerce\" target=\"_blank\">FG Magento to "
+#~ "WooCommerce</a>. You can also make a donation using the button below."
+#~ msgstr ""
+#~ "Si vous avez trouvé ce plugin utile et qu'il vous a fait gagner de "
+#~ "précieuses heures ou jours, merci de le noter sur <a href=\"https://"
+#~ "wordpress.org/support/view/plugin-reviews/fg-magento-to-woocommerce\" "
+#~ "target=\"_blank\">FG Magento to WooCommerce</a>. Vous pouvez aussi faire "
+#~ "un don en utilisant le bouton ci-dessous."
+
+#~ msgid "Multistores"
+#~ msgstr "Multistores"
 
 #~ msgid "Import content from Magento to WooCommerce"
 #~ msgstr "Importer le contenu de Magento vers WooCommerce"
@@ -1070,11 +1103,6 @@ msgstr "Importer"
 
 #~ msgid "Mosets Tree directory"
 #~ msgstr "annuaire Mosets Tree"
-
-#~ msgid "This feature needs an add-on in addition to the Premium version."
-#~ msgstr ""
-#~ "Cette fonctionnalité nécessite un module supplémentaire en plus de la "
-#~ "version Premium."
 
 #~ msgid ""
 #~ "If you found this plugin useful and it saved you many hours or days, "

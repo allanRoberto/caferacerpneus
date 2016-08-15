@@ -21,6 +21,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header( 'shop' ); ?>
+<div class="et_pb_section et_pb_fullwidth_section  et_pb_section_0 et_section_regular et_pb_section_first">
+					<section class="et_pb_fullwidth_header et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_fullwidth_header_0" style="padding-top: 246px;">
+				
+				<div class="et_pb_fullwidth_header_container left">
+					<div class="header-content-container center">
+					<div class="header-content">
+
+					</div>
+				</div>
+					
+				</div>
+				<div class="et_pb_fullwidth_header_overlay"></div>
+				<div class="et_pb_fullwidth_header_scroll"></div>
+			</section>
+				
+			</div>
+
 
 	<?php
 		/**
@@ -32,11 +49,6 @@ get_header( 'shop' ); ?>
 		do_action( 'woocommerce_before_main_content' );
 	?>
 
-		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-
-			<h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
-
-		<?php endif; ?>
 
 		<?php
 			/**
@@ -50,15 +62,7 @@ get_header( 'shop' ); ?>
 
 		<?php if ( have_posts() ) : ?>
 
-			<?php
-				/**
-				 * woocommerce_before_shop_loop hook.
-				 *
-				 * @hooked woocommerce_result_count - 20
-				 * @hooked woocommerce_catalog_ordering - 30
-				 */
-				do_action( 'woocommerce_before_shop_loop' );
-			?>
+			
 
 			<?php woocommerce_product_loop_start(); ?>
 

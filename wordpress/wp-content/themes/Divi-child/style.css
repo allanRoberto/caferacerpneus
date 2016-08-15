@@ -11,237 +11,729 @@ Template: Divi
 @import url('../Divi/style.css');
 
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
 
 body {
-	background: #fff !important;
+  background: #2d2d2d;
+  color: #f2f2f2 !important; 
+}
+
+.fswp_installments_price.loop {
+  top : 25px !important;
+  position: relative !important;
+}
+
+.fswp_in_cash_price.loop {
+    top: -20px !important;
+    position: relative !important;
+  }
+
+@media only screen and (min-width: 981px) {
+  #logo {
+    max-height: 136% !important;
+  }
+}
+
+.overlay {
+  display: none;
 }
 
 
-.et_pb_section_first {
-  padding-top: 0px !important;
+.woocommerce ul.products li.product .price .amount, .woocommerce-page ul.products li.product .price .amount {
+  font-weight: 800;
+  font-size: 16px;
 }
-
-.et-cart-info {
-    border: 2px solid #ccc;
-    padding: 0px 6px;
-    top: -5px;
-    position: relative;
-    margin-top: 36px !important;
-}
-
-#et-info-email, #et-info-phone {
-  font-weight: 300 !important;
-}
-
-#et_top_search {
-  margin-top: 39px;
-}
-
-.et-cart-info span:before {
-	margin-right: 0px;
-  font-size: 12px;
-}
-
-.et_header_style_left .logo_container {
-	width: 97% !important;
-}
-
-.line-text h1:before {
-  content: "";
-    width: 55px;
-    height: 1px;
-    border-top: 1px solid #ff6600;
-    position: absolute;
-    top: 50%;
-    margin-left: -65px;
-}
-
-.line-text h1:after {
-  content: "";
-  width: 55px;
-  height: 1px;
-  border-top: 1px solid #ff6600;
-  position: absolute;
-  top: 50%;
-  margin-left: 10px;
-}
-
-.et_pb_shop .products .product {
-   background: #fff;
-   overflow: hidden;
-}
-
-.et_pb_shop .et_shop_image {
-  height: 265px;
-}
-
-.et_pb_shop ul.products li.product .price {
-  padding: 0 10px;
-}
-
-.et_pb_shop ul.products li.product h3 {
-  font-family: 'Montserrat', sans-serif;
-  text-align: left;
-  padding: 0 10px;
-}
-
-.et_pb_shop ul.products li.product .button {
+.menu-item-metzeller {
+  background: url('img/logo-metzeller-menu.png') center top no-repeat;
+  background-size : contain; 
   width: 100%;
-  float: left;
+  height: 40px;
+  display: block;
+}
+
+.menu-item-pirelli {
+  background: url('img/logo-pirelli-menu.png') center top no-repeat;
+  background-size : contain;
+  width: 100%;
+  height: 40px;
+  display: block;
+
+} 
+
+.menu-item-michelin {
+  background: url('img/logo-michelin-menu.png') center top no-repeat;
+  background-size : contain;
+  width: 100%;
+  height: 40px;
+  display: block;
+}
+
+#top-menu li.mega-menu.mega-menu-parent li li {
   text-align: center;
-  color: #fff;
-  font-size: 14px;
-  padding: 8px;
-  background: #333333;
-  border: 0px;
-  border-radius: 0px;
-  border-bottom: 1px solid #1f1f1f;
-  font-family: 'Montserrat', sans-serif;
-  margin-top : 0px;
 }
 
-.et_pb_shop ul.products li.product .button:after {
-  content : none !important;
+#main-header .nav li ul {
+  top: 20px;
 }
 
-#top-menu li a {
+/* Product Columns */ 
+
+.home .woocommerce .products {
+ display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    overflow: hidden;
+}
+
+.woocommerce .products .product {
+  background: #f6f6f6;
+  padding: 8px !important;
+}
+
+
+.woocommerce .products .product a {
+
+}
+
+.woocommerce .products .product .onsale {
+  display: none !important;
+}
+
+.woocommerce .products .product .et_shop_image {
+  padding: 20px 0;
+  background: #fff;
+  margin-bottom: 10px;
+  height: 325px;
+}
+
+.woocommerce .products .product .et_shop_image:hover .et_overlay {
+  border : 0px !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.woocommerce .products .product .et_shop_image:hover .et_overlay:before {
+  content: "" !important;
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ4Ny45NTggNDg3Ljk1OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDg3Ljk1OCA0ODcuOTU4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTQ4My4wNTgsMjE1LjYxM2wtMjE1LjUtMTc3LjZjLTQtMy4zLTkuNi00LTE0LjMtMS44Yy00LjcsMi4yLTcuNyw3LTcuNywxMi4ydjkzLjZjLTEwNC42LDMuOC0xNzYuNSw0MC43LTIxMy45LDEwOS44ICAgYy0zMi4yLDU5LjYtMzEuOSwxMzAuMi0zMS42LDE3Ni45YzAsMy44LDAsNy40LDAsMTAuOGMwLDYuMSw0LjEsMTEuNSwxMC4xLDEzLjFjMS4xLDAuMywyLjMsMC40LDMuNCwwLjRjNC44LDAsOS4zLTIuNSwxMS43LTYuOCAgIGM3My0xMjguNywxMzMuMS0xMzQuOSwyMjAuMi0xMzUuMnY5My4zYzAsNS4yLDMsMTAsNy44LDEyLjJzMTAuMywxLjUsMTQuNC0xLjhsMjE1LjQtMTc4LjJjMy4xLTIuNiw0LjktNi40LDQuOS0xMC40ICAgUzQ4Ni4xNTgsMjE4LjIxMyw0ODMuMDU4LDIxNS42MTN6IE0yNzIuNTU4LDM3NS42MTN2LTc4LjFjMC0zLjYtMS40LTctNC05LjVjLTIuNS0yLjUtNi00LTkuNS00Yy01NC40LDAtOTYuMSwxLjUtMTM2LjYsMjAuNCAgIGMtMzUsMTYuMy02NS4zLDQ0LTk1LjIsODcuNWMxLjItMzkuNyw2LjQtODcuMSwyOC4xLTEyNy4yYzM0LjQtNjMuNiwxMDEtOTUuMSwyMDMuNy05NmM3LjQtMC4xLDEzLjQtNi4xLDEzLjQtMTMuNXYtNzguMiAgIGwxODAuNywxNDkuMUwyNzIuNTU4LDM3NS42MTN6IiBmaWxsPSIjRkZGRkZGIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+  width: 40px;
+  height: 40px;
+  display: block;
+  background-size: contain;
+}
+
+.woocommerce .products .product .price {
+  padding: 0 10px !important;
+}
+
+.woocommerce .products .product .price del{
+  display: none !important;
+  font-family: "Montserrat", sans-serif;
+}
+
+.woocommerce .products .product .price ins{
   font-size: 14px !important;
 }
 
-.et_header_style_left #et-top-navigation {
-  padding-top : 0px !important;
+.woocommerce .products .product h3 {
+  font-family: 'Varela Round', sans-serif;
+    font-size: 12px !important;
+    padding: 0 10px !important;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px !important;
 }
 
-.et_header_style_left #et-top-navigation nav > ul > li > a {
-  padding-top: 36px;
-}
-
-#top-menu li {
-    padding-right: 21px;
-    padding-left: 21px;
-}
-
-#top-menu > li:last-child {
-  padding-right: 21px;
-}
-
-#top-menu li a:hover {
-  border-bottom: 3px solid #ff6600;
-  border-style: double;
-  top: -2px;
-}
-
-
-
-#et-custom-info-email, #et-custom-info-phone, #et-call-hours {
-  float: left;
-  margin: 0 10px 0 0;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 1px;
-  font-family: 'Lato', sans-serif;
-  border-right: 1px solid #ccc;
-  padding-right: 10px;
-}
-
-#et-custom-info-email {
-  border-right: 0px !important;
-}
-
-#et-call-hours:before, #et-custom-info-phone:before, #et-custom-info-email:before, .my-account:before,  .view-order:before {
-  content : "";
-  max-width: 256px;
-  max-height: 256px;
-  width: 16px;
-  height: 16px;
-  background-size : contain;
+.woocommerce .products .product .button {
+  width: 80%;
+  margin: auto;
+  border : 0px;
+  border-radius : 0px;
+  background: #fff;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 10px !important;
+  padding : 10px;
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
   display: block;
+  color: rgb(102, 102, 102);
+  padding-left: 50px;
+}
+
+.woocommerce .products .product .button:before {
+  content: "";
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMzIDMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMyAzMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yNy4wNDksMzAuMTM0SDUuOTUxYy0wLjk5LDAtMS44MS0wLjc0My0xLjkwOC0xLjcyOEwyLjY1OSwxNC41MzdjLTAuMDE0LTAuMTQxLDAuMDMyLTAuMjgxLDAuMTI3LTAuMzg1ICAgIGMwLjA5NS0wLjEwNSwwLjIyOS0wLjE2NSwwLjM3MS0wLjE2NWgyNi42ODhjMC4xNDEsMCwwLjI3NiwwLjA2LDAuMzcxLDAuMTY1YzAuMDk1LDAuMTA0LDAuMTQxLDAuMjQ1LDAuMTI3LDAuMzg1bC0xLjM4MywxMy44NjkgICAgQzI4Ljg2LDI5LjM5MSwyOC4wMzksMzAuMTM0LDI3LjA0OSwzMC4xMzR6IE0zLjcwOCwxNC45ODhsMS4zMjksMTMuMzE5YzAuMDQ3LDAuNDcyLDAuNDM5LDAuODI3LDAuOTEzLDAuODI3aDIxLjA5OSAgICBjMC40NzQsMCwwLjg2Ny0wLjM1NSwwLjkxNC0wLjgyN2wxLjMyOS0xMy4zMTlIMy43MDh6IiBmaWxsPSIjRkZGRkZGIi8+CgkJPGc+CgkJCTxnPgoJCQkJPHBhdGggZD0iTTcuNjA0LDkuMTA2Yy0wLjE0MywwLTAuMjg1LTAuMDYxLTAuMzgzLTAuMTc5QzcuMDQyLDguNzE2LDcuMDcsOC40LDcuMjgyLDguMjIzbDYuMjQ2LTUuMjQgICAgICBjMC4yMTMtMC4xNzcsMC41MjgtMC4xNSwwLjcwNCwwLjA2MmMwLjE3OCwwLjIxMSwwLjE1LDAuNTI3LTAuMDYyLDAuNzA0bC02LjI0Niw1LjI0QzcuODMxLDkuMDY3LDcuNzE3LDkuMTA2LDcuNjA0LDkuMTA2eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8L2c+CgkJCTxnPgoJCQkJPHBhdGggZD0iTTI1LjM5Nyw5LjEwNmMtMC4xMTMsMC0wLjIyNy0wLjAzOS0wLjMyMS0wLjExN2wtNi4yNDctNS4yNGMtMC4yMTEtMC4xNzgtMC4yMzktMC40OTMtMC4wNjItMC43MDUgICAgICBjMC4xNzktMC4yMTEsMC40OTMtMC4yMzksMC43MDUtMC4wNjJsNi4yNDcsNS4yNGMwLjIxMSwwLjE3OCwwLjIzOSwwLjQ5MywwLjA2MiwwLjcwNUMyNS42ODIsOS4wNDUsMjUuNTQsOS4xMDYsMjUuMzk3LDkuMTA2eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8L2c+CgkJPC9nPgoJCTxwYXRoIGQ9Ik0zMS4yNzUsMTQuOTg4SDEuNzI1QzAuNzc0LDE0Ljk4OCwwLDE0LjIxNCwwLDEzLjI2M3YtMy4xOThjMC0wLjk1MSwwLjc3NC0xLjcyNSwxLjcyNS0xLjcyNWgyOS41NSAgICBjMC45NTEsMCwxLjcyNSwwLjc3NCwxLjcyNSwxLjcyNXYzLjE5OEMzMywxNC4yMTQsMzIuMjI3LDE0Ljk4OCwzMS4yNzUsMTQuOTg4eiBNMS43MjUsOS4zMzlDMS4zMjUsOS4zMzksMSw5LjY2NCwxLDEwLjA2NHYzLjE5OCAgICBjMCwwLjQsMC4zMjUsMC43MjUsMC43MjUsMC43MjVoMjkuNTVjMC4zOTksMCwwLjcyNS0wLjMyNSwwLjcyNS0wLjcyNXYtMy4xOThjMC0wLjQtMC4zMjUtMC43MjUtMC43MjUtMC43MjVIMS43MjV6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+Cgk8Zz4KCQk8cGF0aCBkPSJNOS4yNTUsMjYuMDQ4Yy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41di03LjI1YzAtMC4yNzYsMC4yMjQtMC41LDAuNS0wLjVzMC41LDAuMjI0LDAuNSwwLjV2Ny4yNSAgICBDOS43NTUsMjUuODI1LDkuNTMyLDI2LjA0OCw5LjI1NSwyNi4wNDh6IiBmaWxsPSIjRkZGRkZGIi8+CgkJPHBhdGggZD0iTTE0LjA4NSwyNi4wNDhjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjV2LTcuMjVjMC0wLjI3NiwwLjIyNC0wLjUsMC41LTAuNXMwLjUsMC4yMjQsMC41LDAuNXY3LjI1ICAgIEMxNC41ODUsMjUuODI1LDE0LjM2MiwyNi4wNDgsMTQuMDg1LDI2LjA0OHoiIGZpbGw9IiNGRkZGRkYiLz4KCQk8cGF0aCBkPSJNMTguOTE1LDI2LjA0OGMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXYtNy4yNWMwLTAuMjc2LDAuMjI0LTAuNSwwLjUtMC41czAuNSwwLjIyNCwwLjUsMC41djcuMjUgICAgQzE5LjQxNSwyNS44MjUsMTkuMTkxLDI2LjA0OCwxOC45MTUsMjYuMDQ4eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCTxwYXRoIGQ9Ik0yMy43NDUsMjYuMDQ4Yy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41di03LjI1YzAtMC4yNzYsMC4yMjQtMC41LDAuNS0wLjVzMC41LDAuMjI0LDAuNSwwLjV2Ny4yNSAgICBDMjQuMjQ1LDI1LjgyNSwyNC4wMjEsMjYuMDQ4LDIzLjc0NSwyNi4wNDh6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+  background-color: #ff6600;
+  background-repeat: no-repeat;
+  width: 11px;
+  height: 11px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: center center;
+  padding: 15px 20px;
+}
+
+
+.woocommerce .products .product .button:hover:after {
+  content: "" !important;
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ3Ny4xNzUgNDc3LjE3NSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDc3LjE3NSA0NzcuMTc1OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCI+CjxnPgoJPHBhdGggZD0iTTM2MC43MzEsMjI5LjA3NWwtMjI1LjEtMjI1LjFjLTUuMy01LjMtMTMuOC01LjMtMTkuMSwwcy01LjMsMTMuOCwwLDE5LjFsMjE1LjUsMjE1LjVsLTIxNS41LDIxNS41ICAgYy01LjMsNS4zLTUuMywxMy44LDAsMTkuMWMyLjYsMi42LDYuMSw0LDkuNSw0YzMuNCwwLDYuOS0xLjMsOS41LTRsMjI1LjEtMjI1LjFDMzY1LjkzMSwyNDIuODc1LDM2NS45MzEsMjM0LjI3NSwzNjAuNzMxLDIyOS4wNzV6ICAgIiBmaWxsPSIjNGQ0ZDRkIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+  width: 11px;
+  height: 11px;
+  background-size: contain;
+  top: 14px;
+  margin-left: 10px;
+}
+
+.woocommerce .products .product .added_to_cart {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+  width: 100%;
+  color: #666;
+}
+
+.woocommerce ul.products li.product .price ins .amount, .woocommerce-page ul.products li.product .price ins .amount {
+  display: none;
+}
+
+/* Cart */ 
+
+.woocommerce .shop_table {
+  border:0px !important;
+  border-radius : 0px !important; 
+  background: #fff;
+  padding:20px; 
+}
+
+.woocommerce .shop_table thead {
+  width: 100%;
+  background: #ff6600;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  padding : 5px 0;
+}
+
+.woocommerce-cart table.cart img {
+  width: 110px !important;
+}
+
+.woocommerce-cart .quantity {
+  margin: auto !important;
+}
+
+.woocommerce .shop_table thead tr th {
+  color: #fff;
+}
+
+.woocommerce .shop_table tbody tr td {
+  text-align: center;
+  font-family: 'Varela Round', sans-serif;
+  color : #2d2d2d;
+}
+
+.woocommerce .shop_table tbody tr td a {
+  color: #666;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 12px;
+}
+
+.coupon .input-text {
+  font-family: 'Varela Round', sans-serif !important;
+  font-size: 12px !important;
+  border-radius: 0px !important;
+  background: #fff !important;
+  border: 1px solid #666 !important;
+  padding: 7px 10px !important;
+}
+
+.coupon .button, .actions .button {
+  text-transform: uppercase !important;
+  color: #fff !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 13px !important;
+  border-radius: 0px !important;
+  border: 0px !important;
+  background: #ff6600 !important;
+  padding : 10px;
+}
+
+.buttons-cart .et_pb_column:last-child{
+  margin-right: 0px;
+}
+
+
+.buttons-cart .button {
+  background: #ff6600 !important;
+  border: 0px !important;
+  border-radius: 0px !important;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 16px !important;
+  padding: 10px 18px !important;
+  width: 100%;
+  text-align: center;
+}
+
+.cart-footer {
+  margin-top: 20px;
+}
+
+#et-info {
+  font-weight: 600;
+  margin-left: 10px;
+  float: right;
+  font-family: 'Varela Round', sans-serif !important;
+  color: #fff;
+}
+
+#main-content {
+  background: #2d2d2d !important;
+}
+
+.archive.woocommerce #main-content, .single-product #main-content, .woocommerce-checkout #main-content {
+  background: #2d2d2d !important;
+}
+
+.et_left_sidebar #main-content .container:before, .et_right_sidebar #main-content .container:before {
+  content : none !important;
+}
+
+#sidebar {
+  background: #fff;
+  padding-top: 25px;
+  padding-left: 25px;
+  font-family: 'Varela Round', sans-serif;
+}
+
+#sidebar .widgettitle {
+  font-family: "Montserrat", sans-serif !important;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.et_pb_gutters3.et_left_sidebar.woocommerce-page ul.products li.product {
+    width: 32.353% !important;
+    margin-right: 1.47%;
+    margin-bottom: 1.47%;
+    background: #fff;
+}
+
+.et_left_sidebar.woocommerce-page ul.products li.product:nth-child(3n) {
+  margin-right: 0 !important;
+}
+
+ul.product-categories li.cat-parent, .product-categories .cat-item  {
+  font-weight: 700 !important;
+  border-bottom: 1px solid #eee;
+}
+
+ul.product-categories li.cat-parent:last-child {
+  border-bottom: 0px !important;
+}
+
+ul.product-categories li ul.children li.cat-item {
+  font-weight: 300 !important;
+  border-bottom: 0px !important;
+}
+
+.woocommerce-breadcrumb {
+    background: #fff;
+    padding: 20px !important;
+    font-weight: 700;
+    font-family: "MontSerrat", sans-serif;
+    text-transform: uppercase;
+}
+
+.page-numbers {
+  float: right;
+  border: 0px !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li {
+  background: #fff;
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+  margin: 4px;
+  border : 0px !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a, .woocommerce nav.woocommerce-pagination ul li span {
+  margin: 0;
+  text-decoration: none;
+  line-height: 1;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 11px 15px;
+  min-width: 1em;
+  display: block;
+  color: #666;
+  cursor: pointer;
+}
+
+.woocommerce nav.woocommerce-pagination ul li span  {
+  cursor: default !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li span.current {
+  background: #ff6600;
+  text-decoration: none;
+  line-height: 1;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 11px 15px;
+  min-width: 1em;
+  display: block;
+  color: #fff;
+}
+
+.woocommerce div.product .product_title {
+    clear: none;
+    margin-top: 0;
+    padding: 0;
+    font-family: "Montserrat",sans-serif;
+    font-size: 18px;
+}
+
+.woocommerce-tabs {
+  width: 100%;
+  background: #fff;
+}
+
+body.woocommerce div.product .woocommerce-tabs ul.tabs, body.woocommerce #content-area div.product .woocommerce-tabs ul.tabs {
+  background: transparent !important;
+
+}
+
+body.woocommerce div.product .woocommerce-tabs ul.tabs li, body.woocommerce #content-area div.product .woocommerce-tabs ul.tabs li {
+    border: 0px;
+    background: transparent !important;
+    font-family: "Montserrat",sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-top: 0px !important;
+    border-right: 0px !important;
+    padding: 7px 0;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    border-bottom: 1px solid #ff6600 !important;
+    padding: 7px 0 !important;
+}
+
+
+#tab-description h2, #tab-additional_information h2, #comments {
+  display: none;
+}
+
+#tab-description span {
+  color: #666 !important;
+}
+
+#tab-description p {
+  color: #666 !important;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.content-single-product {
+    background: #fff;
+    display: table;
+    width: 100%;
+    padding: 4% 4% 2% 4%;
+    margin-bottom: 20px;
+}
+
+.woocommerce span.onsale, .woocommerce-page span.onsale {
+  display: none;
+}
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
   float: left;
-  margin-right: 5px;
+  margin: 0% 1% 2.992em 0;
+  padding: 0;
+  position: relative;
+  width: 24%;
+  background: #fff;
 }
 
-#et-call-hours:before {
-  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMyLjg1NyAzMi44NTciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyLjg1NyAzMi44NTc7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMTYuNDMsMzIuODU3QzcuMzcsMzIuODU3LDAsMjUuNDg5LDAsMTYuNDMyQzAsNy4zNzEsNy4zNywwLDE2LjQzLDBjOS4wNTksMCwxNi40MjgsNy4zNzEsMTYuNDI4LDE2LjQzMiAgICBDMzIuODU3LDI1LjQ4OSwyNS40ODgsMzIuODU3LDE2LjQzLDMyLjg1N3ogTTE2LjQzLDFDNy45MjIsMSwxLDcuOTIzLDEsMTYuNDMyYzAsOC41MDYsNi45MjIsMTUuNDI2LDE1LjQzLDE1LjQyNiAgICBjOC41MDcsMCwxNS40MjgtNi45MiwxNS40MjgtMTUuNDI2QzMxLjg1Nyw3LjkyMywyNC45MzcsMSwxNi40MywxeiIgZmlsbD0iI0ZGRkZGRiIvPgoJPC9nPgoJPHBhdGggZD0iTTIxLjIwNSwyMi43MDFjLTAuMTQ0LDAtMC4yODYtMC4wNjItMC4zODUtMC4xODJsLTQuNzc1LTUuNzdjLTAuMDc0LTAuMDg5LTAuMTE1LTAuMjAyLTAuMTE1LTAuMzE4VjYuODQ0ICAgYzAtMC4yNzYsMC4yMjQtMC41LDAuNS0wLjVzMC41LDAuMjI0LDAuNSwwLjV2OS40MDhsNC42Niw1LjYzMWMwLjE3NywwLjIxMiwwLjE0NiwwLjUyNy0wLjA2NiwwLjcwMyAgIEMyMS40MzEsMjIuNjYzLDIxLjMxNywyMi43MDEsMjEuMjA1LDIyLjcwMXoiIGZpbGw9IiNGRkZGRkYiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+#left-area {
+  width: 100%;
+}
+
+.single-product #sidebar {
+  display: none;
+}
+
+.product .related h2 {
+    padding-bottom: 20px;
+    font-size: 21px !important;
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+}
+
+.entry-summary p.price del  {
+  display: table;
+}
+
+.woocommerce div.product p.stock {
+  display: none;
+}
+
+.entry-summary p.price del span {
+   font-size: 12px !important;
+   color: #666 !important;
+   font-family: 'Varela Round', sans-serif;
+}
+
+.entry-summary p.price ins span .woocommerce-Price-currencySymbol {
+  font-size: 12px !important;
+  line-height: 18px;
+  }
+
+.entry-summary p.price ins span {
+  font-size: 23px !important;
+  color: #999;
+  float: left;
+}
+
+.woocommerce.single-product div.product .product_title {
+    clear: none;
+    margin-top: 0;
+    padding: 0;
+    font-family: "Montserrat",sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 14px;
+}
+
+.woocommerce div.product form.cart .button, .woocommerce #payment #place_order, .woocommerce-page #payment #place_order, .checkout_coupon .button, .wc_payment_methods .payment_methods .methods .button {
+    background: #ff6600;
+    border: 0px;
+    border-radius: 0px;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    padding: 11px;
+    float: right;
+}
+
+.entry-summary .cart{
+  display: table;
+  float: left;
+}
+
+.main_title {
+  display: none;
+}
+
+.woocommerce-billing-fields h3, .woocommerce-shipping-fields h3, #order_review_heading {
+  font-family: "Montserrat", sans-serif;
+  color : #f2f2f2;
+}
+
+.cart-subtotal td {
+  text-align: center;
+  color: #2d2d2d;
+}
+
+.cart-subtotal th {
+  text-align: right !important;
+  color: #2d2d2d;
+}
+
+.order-total td {
+  text-align: center;
+  color: #2d2d2d;
+}
+
+.order-total th {
+  text-align: right !important;
 }
 
 
-#et-custom-info-phone:before {
-  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI5LjczNSAyOS43MzUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5LjczNSAyOS43MzU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMjU2cHgiIGhlaWdodD0iMjU2cHgiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yMy44OTUsMjkuNzMzYy0xLjIzNywwLTIuNzMxLTAuMzEtNC4zNzMtMC45MjljLTMuNjAzLTEuMzU5LTcuNTIxLTQuMDQzLTExLjAzNS03LjU1NyAgICBDNC45NzMsMTcuNzMzLDIuMjg5LDEzLjgxNCwwLjkzLDEwLjIxQy0wLjMwNyw2LjkzNS0wLjMxLDQuMjQ3LDAuOTIsMy4wMTdjMC4xNzgtMC4xNzgsMC4zNTktMC4zNjgsMC41NDUtMC41NjMgICAgYzEuMTIzLTEuMTgsMi40MjItMi41MjEsNC4wNzMtMi40NDhjMS4xNiwwLjA0OCwyLjI4MywwLjc2OCwzLjQzNSwyLjE5OGMzLjM5Niw0LjIyNSwxLjg2NSw1LjczMSwwLjA5Myw3LjQ3N0w4Ljc1Miw5Ljk5MSAgICBjLTAuMjksMC4yOS0wLjgzOSwxLjYzMiw0LjI2LDYuNzNjMS42NjYsMS42NjUsMy4wODQsMi44ODMsNC4yMTcsMy42MmMwLjcxNSwwLjQ2NCwxLjk5MSwxLjE2NCwyLjUxNCwwLjY0MWwwLjMxNS0wLjMxOCAgICBjMS43NDQtMS43NywzLjI1LTMuMjk2LDcuNDc0LDAuMDk5YzEuNDMxLDEuMTUsMi4xNSwyLjI3MywyLjE5OCwzLjQzNGMwLjA2OSwxLjY4Mi0xLjI3MSwyLjk1NC0yLjQ1Myw0LjA3NiAgICBjLTAuMTk0LDAuMTg1LTAuMzg0LDAuMzY0LTAuNTYsMC41NEMyNi4xMDMsMjkuNDI2LDI1LjEyNywyOS43MzMsMjMuODk1LDI5LjczM3ogTTUuNDE5LDEuMDAyYy0xLjE5NCwwLTIuMjc0LDEuMTM2LTMuMjI5LDIuMTQgICAgQzEuOTk3LDMuMzQ0LDEuODEsMy41NDEsMS42MjcsMy43MjRDMC43MTEsNC42MzksMC44MDUsNy4wNDcsMS44NjUsOS44NThjMS4zMSwzLjQ3MywzLjkxMyw3LjI2Nyw3LjMyOSwxMC42ODMgICAgczcuMjA5LDYuMDE4LDEwLjY4MSw3LjMyOGMyLjgxMSwxLjA2MSw1LjIxOSwxLjE1Myw2LjEzNSwwLjIzNmMwLjE4My0wLjE4MiwwLjM3OC0wLjM2OCwwLjU3OC0wLjU1OCAgICBjMS4wMjgtMC45NzcsMi4xOTMtMi4wODMsMi4xNDMtMy4zMTFjLTAuMDM1LTAuODQzLTAuNjQ5LTEuNzUtMS44MjYtMi42OTVjLTMuNTItMi44MjgtNC41MDMtMS44MjgtNi4xMzUtMC4xNzZsLTAuMzIsMC4zMjMgICAgYy0wLjc3NywwLjc4MS0yLjA0NCwwLjYxLTMuNzY2LTAuNTFjLTEuMTktMC43NzQtMi42NjQtMi4wMzctNC4zNzktMy43NTFsMCwwYy00LjIzMS00LjIzMS01LjU4NS02LjgxOS00LjI2LTguMTQ1bDAuMzE5LTAuMzE2ICAgIGMxLjY1OC0xLjYzMiwyLjY1OC0yLjYxNy0wLjE3MS02LjEzN0M3LjI0NywxLjY1NCw2LjM0LDEuMDQsNS40OTcsMS4wMDRDNS40NzEsMS4wMDMsNS40NDQsMS4wMDIsNS40MTksMS4wMDJ6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+Cgk8Zz4KCQk8cGF0aCBkPSJNMjQuMDcsMTIuMjljLTAuMDYzLDAtMC4xMjYtMC4wMTItMC4xODgtMC4wMzdjLTAuMjU2LTAuMTA0LTAuMzgtMC4zOTUtMC4yNzUtMC42NWMwLjYzNi0xLjU2OCwwLjI3Mi0zLjM1NS0wLjkyNC00LjU1MiAgICBjLTEuMjI5LTEuMjI5LTMuMTE4LTEuNTctNC43MDMtMC44NThjLTAuMjQ5LDAuMTEzLTAuNTQ4LDAuMDAzLTAuNjYxLTAuMjQ5Yy0wLjExNC0wLjI1Mi0wLjAwMy0wLjU0OCwwLjI0OS0wLjY2MSAgICBjMS45NjEtMC44ODgsNC4zLTAuNDYxLDUuODIyLDEuMDYyYzEuNDgxLDEuNDgxLDEuOTMsMy42OTIsMS4xNDMsNS42MzRDMjQuNDU1LDEyLjE3MSwyNC4yNjcsMTIuMjksMjQuMDcsMTIuMjl6IiBmaWxsPSIjRkZGRkZGIi8+CgkJPHBhdGggZD0iTTI4LjUzNCwxNC4xMDJjLTAuMDYzLDAtMC4xMjYtMC4wMTItMC4xODgtMC4wMzdjLTAuMjU3LTAuMTA0LTAuMzgtMC4zOTUtMC4yNzUtMC42NSAgICBjMS4zNjUtMy4zNjcsMC41ODgtNy4yMDItMS45ODEtOS43NzFjLTIuNjM4LTIuNjM4LTYuNjk1LTMuMzc4LTEwLjA5NS0xLjg0MWMtMC4yNTIsMC4xMS0wLjU0OCwwLjAwMi0wLjY2Mi0wLjI1ICAgIEMxNS4yMiwxLjMsMTUuMzMxLDEuMDA0LDE1LjU4MywwLjg5YzMuNzc3LTEuNzA2LDguMjgzLTAuODg1LDExLjIxNCwyLjA0NmMyLjg1NCwyLjg1NCwzLjcxOCw3LjExNCwyLjIsMTAuODU0ICAgIEMyOC45MTksMTMuOTg0LDI4LjczMSwxNC4xMDIsMjguNTM0LDE0LjEwMnoiIGZpbGw9IiNGRkZGRkYiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+.woocommerce .woocommerce-message, .woocommerce .woocommerce-info  {
+    background: #ff6600;
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    font-size: 13px !important;
+    line-height: 30px;
+    margin-bottom 0 0 15px !important: 
 }
 
-.my-account:before {
-  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMzIDMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMyAzMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIyNTZweCIgaGVpZ2h0PSIyNTZweCI+CjxnPgoJPHBhdGggZD0iTTE2LjUsMzNDNy40MDIsMzMsMCwyNS41OTgsMCwxNi41UzcuNDAyLDAsMTYuNSwwUzMzLDcuNDAyLDMzLDE2LjVTMjUuNTk4LDMzLDE2LjUsMzN6IE0xNi41LDFDNy45NTMsMSwxLDcuOTUzLDEsMTYuNSAgIFM3Ljk1MywzMiwxNi41LDMyUzMyLDI1LjA0NywzMiwxNi41UzI1LjA0NywxLDE2LjUsMXoiIGZpbGw9IiNGRkZGRkYiLz4KCTxwYXRoIGQ9Ik0xNi41LDMzYy0zLjQzNSwwLTYuNzM2LTEuMDU4LTkuNTQ5LTMuMDZjLTAuMTUtMC4xMDctMC4yMy0wLjI5LTAuMjA2LTAuNDczczAuMTQ4LTAuMzM5LDAuMzIyLTAuNDAzICAgYzQuMTQ2LTEuNTM1LDQuODE1LTIuNzgxLDQuODE1LTUuMTY5YzAtMC42MzEtMC4xNDItMC44MzgtMC4zOTgtMS4yMTRjLTAuMzM5LTAuNDk0LTAuODAzLTEuMTcxLTEuMTI5LTIuOTM5ICAgYy0wLjA0OC0wLjI1NC0wLjA4OS0wLjI3NC0wLjMxNi0wLjM4NGMtMC42MDYtMC4yOTItMS4xNjMtMC43MTItMS4zMDktMi42MjhjMC0wLjkyOCwwLjMyLTEuNDQxLDAuNTg1LTEuNzA4ICAgYy0wLjA1OC0wLjMzLTAuMTUzLTAuODk5LTAuMjQyLTEuNTE5QzguNjIsMTAuNzI2LDguNiw3LjMyNSwxMi41MDYsNS43NDRjMy40MDQtMS4zOCw2LjEyMS0wLjYyNiw2Ljk3NCwwLjI3MyAgIGMwLjYwNCwwLjAxOSwyLjE2MiwwLjE3NywzLjI0NiwxLjQzOGMxLjY2OCwxLjk0LDEuMTM3LDYuMzYzLDAuOTU1LDcuNTYyYzAuMjY2LDAuMjYxLDAuNTg5LDAuNzY3LDAuNTg5LDEuNjc1ICAgYy0wLjE0NiwxLjk1NC0wLjcwMywyLjM3NS0xLjMxLDIuNjY2Yy0wLjIyOCwwLjExLTAuMjY5LDAuMTI5LTAuMzE2LDAuMzg0Yy0wLjMyNiwxLjc2OC0wLjc4OSwyLjQ0NS0xLjEyOCwyLjkzOSAgIGMtMC4yNTcsMC4zNzUtMC4zOTgsMC41ODMtMC4zOTgsMS4yMTRjMCwyLjM4OCwwLjY2OSwzLjYzNCw0LjgxNSw1LjE2OWMwLjE3NCwwLjA2NCwwLjI5OCwwLjIxOSwwLjMyMiwwLjQwMyAgIHMtMC4wNTYsMC4zNjYtMC4yMDYsMC40NzNDMjMuMjM2LDMxLjk0MiwxOS45MzUsMzMsMTYuNSwzM3ogTTguMzE3LDI5LjY1MUMxMC43NzksMzEuMTkxLDEzLjU4OSwzMiwxNi41LDMyICAgczUuNzIxLTAuODA5LDguMTgzLTIuMzQ5Yy0zLjQ3NC0xLjQyNi00LjU2NS0yLjg2NC00LjU2NS01Ljc1NWMwLTAuOTQxLDAuMjc4LTEuMzQ4LDAuNTczLTEuNzc5ICAgYzAuMzA0LTAuNDQ0LDAuNjgyLTAuOTk2LDAuOTcxLTIuNTU2YzAuMTM5LTAuNzU0LDAuNTc2LTAuOTY0LDAuODY1LTEuMTAzYzAuMzExLTAuMTQ5LDAuNjMxLTAuMzAzLDAuNzQ0LTEuODAzICAgYy0wLjAwMS0wLjc2NC0wLjM0NC0wLjk3Mi0wLjM1OC0wLjk4Yy0wLjE4NC0wLjEwNi0wLjMwMy0wLjMyOS0wLjI2NC0wLjUzN2MwLjI0OC0xLjMyOSwwLjY1Ni01LjQ3NC0wLjY4MS03LjAzMSAgIGMtMC45MTMtMS4wNjItMi4zNTItMS4wOTEtMi42MjYtMS4wOGMtMC4wNDYtMC4wMDQtMC4wOTEtMC4wMDUtMC4xMzQtMC4wMTZjLTAuMTMtMC4wMzMtMC4zNS0wLjE0Ni0wLjQxNy0wLjI2MiAgIGMtMC4yNzItMC40NjYtMi42NDEtMS40MDMtNS45MS0wLjA4Yy0zLjIzMSwxLjMwOC0zLjIzOCw0LjExMi0yLjgxOSw2LjY4MmMwLjEzOCwwLjk1NywwLjI4OSwxLjc4NCwwLjI5LDEuNzg4ICAgYzAuMDQxLDAuMjI1LTAuMDc2LDAuNDQ5LTAuMjgzLDAuNTQ0bDAsMGMwLjAwMywwLTAuMzM5LDAuMjA5LTAuMzM5LDEuMDA4YzAuMTEyLDEuNDYxLDAuNDMzLDEuNjE2LDAuNzQzLDEuNzY1ICAgYzAuMjg5LDAuMTM5LDAuNzI3LDAuMzQ5LDAuODY2LDEuMTAzYzAuMjg4LDEuNTYsMC42NjYsMi4xMTIsMC45NywyLjU1NmMwLjI5NiwwLjQzMSwwLjU3NCwwLjgzOCwwLjU3NCwxLjc3OSAgIEMxMi44ODMsMjYuNzg4LDExLjc5MiwyOC4yMjYsOC4zMTcsMjkuNjUxeiIgZmlsbD0iI0ZGRkZGRiIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
+.woocommerce-message a.button.wc-forward {
+    border: none;
+    background: transparent !important;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 0px;
 }
 
-#et-custom-info-email:before {
-  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjAxMiAzMS4wMTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMxLjAxMiAzMS4wMTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMjU2cHgiIGhlaWdodD0iMjU2cHgiPgo8Zz4KCTxwYXRoIGQ9Ik0yOC41MTIsMjYuNTI5SDIuNWMtMS4zNzgsMC0yLjUtMS4xMjEtMi41LTIuNVY2Ljk4MmMwLTEuMzc5LDEuMTIyLTIuNSwyLjUtMi41aDI2LjAxMmMxLjM3OCwwLDIuNSwxLjEyMSwyLjUsMi41djE3LjA0NyAgIEMzMS4wMTIsMjUuNDA4LDI5Ljg5LDI2LjUyOSwyOC41MTIsMjYuNTI5eiBNMi41LDUuNDgyYy0wLjgyNywwLTEuNSwwLjY3My0xLjUsMS41djE3LjA0N2MwLDAuODI3LDAuNjczLDEuNSwxLjUsMS41aDI2LjAxMiAgIGMwLjgyNywwLDEuNS0wLjY3MywxLjUtMS41VjYuOTgyYzAtMC44MjctMC42NzMtMS41LTEuNS0xLjVIMi41eiIgZmlsbD0iI0ZGRkZGRiIvPgoJPHBhdGggZD0iTTE1LjUwNiwxOC4wMThjLTAuNjY1LDAtMS4zMy0wLjIyMS0xLjgzNi0wLjY2MkwwLjg5MSw2LjIxOWMtMC4yMDgtMC4xODItMC4yMy0wLjQ5Ny0wLjA0OC0wLjcwNSAgIGMwLjE4Mi0wLjIxLDAuNDk4LTAuMjMsMC43MDYtMC4wNDlsMTIuNzc4LDExLjEzN2MwLjY0LDAuNTU3LDEuNzIsMC41NTYsMi4zNTgsMEwyOS40Niw1LjQ2NmMwLjIwNy0wLjE4MywwLjUyMi0wLjE2MiwwLjcwNiwwLjA0OSAgIGMwLjE4MiwwLjIwOCwwLjE2LDAuNTIzLTAuMDQ4LDAuNzA1TDE3LjM0MiwxNy4zNTVDMTYuODM2LDE3Ljc5NywxNi4xNzEsMTguMDE4LDE1LjUwNiwxOC4wMTh6IiBmaWxsPSIjRkZGRkZGIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+.woocommerce-message a.button.wc-forward:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
-.view-order:before {
-    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMzIDMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMyAzMzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIyNTZweCIgaGVpZ2h0PSIyNTZweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTI3LjA0OSwzMC4xMzRINS45NTFjLTAuOTksMC0xLjgxLTAuNzQzLTEuOTA4LTEuNzI4TDIuNjU5LDE0LjUzN2MtMC4wMTQtMC4xNDEsMC4wMzItMC4yODEsMC4xMjctMC4zODUgICAgYzAuMDk1LTAuMTA1LDAuMjI5LTAuMTY1LDAuMzcxLTAuMTY1aDI2LjY4OGMwLjE0MSwwLDAuMjc2LDAuMDYsMC4zNzEsMC4xNjVjMC4wOTUsMC4xMDQsMC4xNDEsMC4yNDUsMC4xMjcsMC4zODVsLTEuMzgzLDEzLjg2OSAgICBDMjguODYsMjkuMzkxLDI4LjAzOSwzMC4xMzQsMjcuMDQ5LDMwLjEzNHogTTMuNzA4LDE0Ljk4OGwxLjMyOSwxMy4zMTljMC4wNDcsMC40NzIsMC40MzksMC44MjcsMC45MTMsMC44MjdoMjEuMDk5ICAgIGMwLjQ3NCwwLDAuODY3LTAuMzU1LDAuOTE0LTAuODI3bDEuMzI5LTEzLjMxOUgzLjcwOHoiIGZpbGw9IiNGRkZGRkYiLz4KCQk8Zz4KCQkJPGc+CgkJCQk8cGF0aCBkPSJNNy42MDQsOS4xMDZjLTAuMTQzLDAtMC4yODUtMC4wNjEtMC4zODMtMC4xNzlDNy4wNDIsOC43MTYsNy4wNyw4LjQsNy4yODIsOC4yMjNsNi4yNDYtNS4yNCAgICAgIGMwLjIxMy0wLjE3NywwLjUyOC0wLjE1LDAuNzA0LDAuMDYyYzAuMTc4LDAuMjExLDAuMTUsMC41MjctMC4wNjIsMC43MDRsLTYuMjQ2LDUuMjRDNy44MzEsOS4wNjcsNy43MTcsOS4xMDYsNy42MDQsOS4xMDZ6IiBmaWxsPSIjRkZGRkZGIi8+CgkJCTwvZz4KCQkJPGc+CgkJCQk8cGF0aCBkPSJNMjUuMzk3LDkuMTA2Yy0wLjExMywwLTAuMjI3LTAuMDM5LTAuMzIxLTAuMTE3bC02LjI0Ny01LjI0Yy0wLjIxMS0wLjE3OC0wLjIzOS0wLjQ5My0wLjA2Mi0wLjcwNSAgICAgIGMwLjE3OS0wLjIxMSwwLjQ5My0wLjIzOSwwLjcwNS0wLjA2Mmw2LjI0Nyw1LjI0YzAuMjExLDAuMTc4LDAuMjM5LDAuNDkzLDAuMDYyLDAuNzA1QzI1LjY4Miw5LjA0NSwyNS41NCw5LjEwNiwyNS4zOTcsOS4xMDZ6IiBmaWxsPSIjRkZGRkZGIi8+CgkJCTwvZz4KCQk8L2c+CgkJPHBhdGggZD0iTTMxLjI3NSwxNC45ODhIMS43MjVDMC43NzQsMTQuOTg4LDAsMTQuMjE0LDAsMTMuMjYzdi0zLjE5OGMwLTAuOTUxLDAuNzc0LTEuNzI1LDEuNzI1LTEuNzI1aDI5LjU1ICAgIGMwLjk1MSwwLDEuNzI1LDAuNzc0LDEuNzI1LDEuNzI1djMuMTk4QzMzLDE0LjIxNCwzMi4yMjcsMTQuOTg4LDMxLjI3NSwxNC45ODh6IE0xLjcyNSw5LjMzOUMxLjMyNSw5LjMzOSwxLDkuNjY0LDEsMTAuMDY0djMuMTk4ICAgIGMwLDAuNCwwLjMyNSwwLjcyNSwwLjcyNSwwLjcyNWgyOS41NWMwLjM5OSwwLDAuNzI1LTAuMzI1LDAuNzI1LTAuNzI1di0zLjE5OGMwLTAuNC0wLjMyNS0wLjcyNS0wLjcyNS0wLjcyNUgxLjcyNXoiIGZpbGw9IiNGRkZGRkYiLz4KCTwvZz4KCTxnPgoJCTxwYXRoIGQ9Ik05LjI1NSwyNi4wNDhjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjV2LTcuMjVjMC0wLjI3NiwwLjIyNC0wLjUsMC41LTAuNXMwLjUsMC4yMjQsMC41LDAuNXY3LjI1ICAgIEM5Ljc1NSwyNS44MjUsOS41MzIsMjYuMDQ4LDkuMjU1LDI2LjA0OHoiIGZpbGw9IiNGRkZGRkYiLz4KCQk8cGF0aCBkPSJNMTQuMDg1LDI2LjA0OGMtMC4yNzYsMC0wLjUtMC4yMjQtMC41LTAuNXYtNy4yNWMwLTAuMjc2LDAuMjI0LTAuNSwwLjUtMC41czAuNSwwLjIyNCwwLjUsMC41djcuMjUgICAgQzE0LjU4NSwyNS44MjUsMTQuMzYyLDI2LjA0OCwxNC4wODUsMjYuMDQ4eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCTxwYXRoIGQ9Ik0xOC45MTUsMjYuMDQ4Yy0wLjI3NiwwLTAuNS0wLjIyNC0wLjUtMC41di03LjI1YzAtMC4yNzYsMC4yMjQtMC41LDAuNS0wLjVzMC41LDAuMjI0LDAuNSwwLjV2Ny4yNSAgICBDMTkuNDE1LDI1LjgyNSwxOS4xOTEsMjYuMDQ4LDE4LjkxNSwyNi4wNDh6IiBmaWxsPSIjRkZGRkZGIi8+CgkJPHBhdGggZD0iTTIzLjc0NSwyNi4wNDhjLTAuMjc2LDAtMC41LTAuMjI0LTAuNS0wLjV2LTcuMjVjMC0wLjI3NiwwLjIyNC0wLjUsMC41LTAuNXMwLjUsMC4yMjQsMC41LDAuNXY3LjI1ICAgIEMyNC4yNDUsMjUuODI1LDI0LjAyMSwyNi4wNDgsMjMuNzQ1LDI2LjA0OHoiIGZpbGw9IiNGRkZGRkYiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+.product_meta {
+    padding-top: 6px;
+    border-top: 1px solid #dadada;
+    color: #666;
+    font-size: 14px;
+    float: left;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.product_meta span {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.product_meta span span {
+  border:0px !important;
+  width: auto;
+  float: none;
+}
+
+.posted_in a {
+    color: #ff6600;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.cart_totals h2 {
+  display: none;
+}
+
+.woocommerce-checkout #payment {
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #666;
+    border-radius: 0px;
+}
+
+.woocommerce-checkout #payment ul.payment_methods li {
+  font-family: "Montserrat", sans-serif;
+  color: #2d2d2d;
+}
+
+.woocommerce-checkout #payment div.payment_box {
+  background: #eee;
+}
+
+#add_payment_method #payment div.payment_box:before, .woocommerce-checkout #payment div.payment_box:before {
+  content : none !important;
+}
+
+.woocommerce-checkout #payment ul.payment_methods {
+  border-bottom: 0px !important;
+}
+
+.woocommerce .col2-set .col-1, .woocommerce-page .col2-set .col-1 {
+    float: left;
+    width: 100%;
+}
+
+.woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-2 {
+    float: left;
+    width: 100%;
+}
+
+.home .et_pb_section_first {
+  padding-top: 0px !important;
+}
+
+.et_header_style_left .logo_container {
+  width: 97% !important;
 }
 
 #top-header {
-  background: #171717 !important;
-  border-bottom: 1px solid #1f1f1f;
+  padding: 10px;
+  font-family: 'Varela Round', sans-serif !important;
+  background-color: #1f1f1f;
+  border-bottom: 1px solid #353535;
 }
 
-#et-secondary-menu > ul > li a {
-    display: block;
-    padding-bottom: 0px !important; 
-    line-height: 16px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    letter-spacing: 1px;
-    font-size: 12px;
-    border-right: 1px solid #ccc;
-    padding-right: 10px;
-    margin-bottom: 0.75em;
-    float: left;
+#et-call-hours {
+  float: left;
 }
 
-#et-secondary-menu > ul > li:last-child a {
-  border-right: 0px !important;
+#et-call-hours span {
+  color: #3ABBCE;
 }
 
-#et-secondary-nav li {
-    margin-right: 10px !important;
+.et-call-to-action {
+  color: rgb(255, 153, 0) !important;
+  float: left;
 }
 
-nav#top-menu-nav {
-  margin-right : 150px;
+#et-custom-info-phone {
+  color: #3ABBCE;
 }
 
-#top-menu-nav > ul > li > a:hover {
-  opacity: 1.0 !important;
-  filter: alpha(opacity=1.0) !important;
+#et-custom-info-phone .dd {
+  font-size: 11px;
+  color: rgb(255, 153, 0) !important;
 }
 
-.woocommerce span.onsale {
-  text-transform: uppercase;
-  top: 0px !important;
-  left: 0px !important; 
-  background: #1f1f1f !important; 
-  padding: 7px 5px 0px 8px !important;
+#et-custom-info-phone .number {
+    color: rgb(255, 153, 0) !important;
 }
 
-.woocommerce span.onsale:before {
--webkit-transition: all 0.4s;
-    -khtml-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    transition: all 0.4s;
-    content: '';
-    position: absolute;
-    left: -25px;
-    top: -100px;
-    right: 0;
-    bottom: -100px;
-    background-color: #1f1f1f;
-    z-index: -1;
-    -webkit-transform: rotate(51deg);
-    -khtml-transform: rotate(51deg);
-    -moz-transform: rotate(51deg);
-    -ms-transform: rotate(51deg);
-    transform: rotate(51deg);
+.text-primary:after {
+  content: "";
+  height: 2px;
+  width: 7%;
+  position: relative;
+  background-color: rgba(255, 153, 0, 0.7) !important;
+  display: block;
+  margin: 10px auto;
+}
+
+#main-header {
+  top : 88px !important;
+}
+
+.et_fullwidth_nav #top-menu li.mega-menu > ul {
+  top : 84px !important;
+}
+
+#main-footer {
+  background: url("img/bg-depoimentos.jpg") center top no-repeat;
+  background-size: cover;
+}
+
+#footer-widgets .footer-widget li:before {
+  content : none !important;
+}
+
+.footer-widget .title {
+    font-family: "Montserrat", sans-serif;
+    color: #9e9e9e;
+    font-weight: 800;
+    color: #ccc;
+}
+
+.footer-widget .title:after {
+  content: "";
+  height: 2px;
+  width: 25%;
+  position: relative;
+  background-color: rgba(255, 153, 0, 0.7) !important;
+  display: block;
+  margin-top: 10px;
+}
+
+.et_pb_gutters3.et_pb_footer_columns4 .footer-widget .fwidget {
+  margin-bottom: 9.348%;
 }

@@ -69,7 +69,7 @@ class FG_Magento_to_WooCommerce {
 	public function __construct() {
 
 		$this->plugin_name = 'fg-magento-to-woocommerce';
-		$this->version = '2.1.0';
+		$this->version = '2.4.0';
 
 		$this->load_dependencies();
 		$this->set_locale();

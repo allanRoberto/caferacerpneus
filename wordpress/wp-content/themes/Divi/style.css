@@ -646,7 +646,6 @@ blockquote {
 	opacity: 0;
 	font-size: 32px;
 	line-height: 1em;
-	content: "\35";
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.2s;
 	transition: all 0.2s;
@@ -984,8 +983,7 @@ blockquote {
 .et_button_no_icon.et_button_left.woocommerce-page #respond input#submit:hover,
 .et_button_no_icon.et_button_left.woocommerce #content input.button:hover,
 .et_button_no_icon.et_button_left.woocommerce-page #content input.button:hover,
-.woocommerce input.button,
-.woocommerce input.button:hover {
+ {
 	padding: 0.3em 1em !important;
 }
 
@@ -2219,8 +2217,7 @@ table.cart td.actions .checkout-button {
 .woocommerce .quantity input.qty,
 .woocommerce-page .quantity input.qty,
 .woocommerce #content .quantity input.qty,
-.woocommerce-page #content .quantity input.qty,
-.woocommerce-cart table.cart td.actions .coupon .input-text {
+.woocommerce-page #content .quantity input.qty {
 	height: 49px;
 	border: none!important;
 	-webkit-border-radius: 3px;
@@ -8587,7 +8584,6 @@ body.chrome.parallax-map-support .et_pb_map {
 .et-pb-arrow-next:before,
 .et_pb_testimonial:before,
 .et_pb_toggle_title:before,
-.et_overlay:before,
 #et_search_icon:before,
 .mobile_menu_bar:before,
 .et-social-icon a:before,

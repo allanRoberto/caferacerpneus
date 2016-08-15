@@ -39,14 +39,16 @@ if ( !class_exists('FG_Magento_to_WooCommerce_Admin', false) ) {
 		private $version;
 
 		public $plugin_options;					// Plug-in options
+		public $default_language = 0;			// Default language ID
 		public $progressbar;
-		public $imported_categories = array();
+		public $imported_categories = array();	// Imported product categories
 		public $chunks_size = 10;
 		public $media_count = 0;				// Number of imported medias
 		public $magento_version = '';			// Magento DB version
 		public $product_types = array();
 		public $global_tax_rate = 0;
 		public $attribute_types = array();
+		public $store_id = 0;
 		
 		protected $faq_url;						// URL of the FAQ page
 		protected $post_type = 'post';			// post or page
@@ -381,6 +383,9 @@ if ( !class_exists('FG_Magento_to_WooCommerce_Admin', false) ) {
 			$products_count = $this->count_posts('product');
 			$media_count = $this->count_posts('attachment');
 			$product_cat_count = wp_count_terms('product_cat', array('hide_empty' => false));
+			if ( !is_int($product_cat_count) ) {
+				$product_cat_count = 0;
+			}
 
 			$database_info =
 				sprintf(_n('%d post', '%d posts', $posts_count, 'fg-magento-to-woocommerce'), $posts_count) . "<br />" .
@@ -847,9 +852,11 @@ SQL;
 		private function get_cms_count() {
 			$prefix = $this->plugin_options['prefix'];
 			$sql = "
-				SELECT COUNT(*) AS nb
-				FROM ${prefix}cms_page
+				SELECT COUNT(DISTINCT(a.page_id)) AS nb
+				FROM ${prefix}cms_page a
+				INNER JOIN ${prefix}cms_page_store s ON s.page_id = a.page_id AND s.store_id IN (0, {$this->store_id})
 			";
+			$sql = apply_filters('fgm2wc_get_posts_sql', $sql);
 			$result = $this->magento_query($sql);
 			$cms_count = isset($result[0]['nb'])? $result[0]['nb'] : 0;
 			return $cms_count;
@@ -1025,8 +1032,10 @@ SQL;
 		
 		/**
 		 * Import the Magento attributes (used for product categories and products)
+		 * 
+		 * @return array Attribute types
 		 */
-		private function get_magento_attributes() {
+		protected function get_magento_attributes() {
 			$attribute_types = array();
 			$prefix = $this->plugin_options['prefix'];
 			$sql = "
@@ -1049,7 +1058,7 @@ SQL;
 		 * 
 		 * @return array Entity type codes
 		 */
-		private function get_magento_entity_type_codes() {
+		protected function get_magento_entity_type_codes() {
 			$entity_type_codes = array();
 			$prefix = $this->plugin_options['prefix'];
 			$sql = "
@@ -1121,72 +1130,15 @@ SQL;
 				
 				if ( is_array($posts) ) {
 					foreach ( $posts as $post ) {
+						// Increment the CMS last imported post ID
+						update_option('fgm2wc_last_magento_cms_id', $post['page_id']);
 						
-						// Hook for modifying the CMS post before processing
-						$post = apply_filters('fgm2wc_pre_process_post', $post);
-						
-						// Date
-						$post_date = $post['creation_time'];
-						
-						// Content
-						$content = $post['content'];
-						if ( !empty($post['content_heading']) ) {
-							$content = '<h2>' . $post['content_heading'] . '</h2>' . $content;
-						}
-						
-						// Replace Magento media URLs
-						$content = preg_replace('/{{media url="(.*?)"}}/', "media/$1", $content);
-
-						// Medias
-						if ( !$this->plugin_options['skip_media'] ) {
-							// Extra featured image
-							$featured_image = '';
-							list($featured_image, $post) = apply_filters('fgm2wc_pre_import_media', array($featured_image, $post));
-							// Import media
-							$result = $this->import_media_from_content($featured_image . $content, $post_date);
-							$post_media = $result['media'];
-							$this->media_count += $result['media_count'];
-						} else {
-							// Skip media
-							$post_media = array();
-						}
-						
-						// Process content
-						$content = $this->process_content($content, $post_media);
-						
-						// Status
-						$status = ($post['is_active'] == 1)? 'publish' : 'draft';
-						
-						// Insert the post
-						$new_post = array(
-							'post_content'		=> $content,
-							'post_date'			=> $post_date,
-							'post_status'		=> $status,
-							'post_title'		=> $post['title'],
-							'post_name'			=> $post['identifier'],
-							'post_type'			=> $this->post_type,
-							'menu_order'        => $post['sort_order'],
-						);
-						
-						// Hook for modifying the WordPress post just before the insert
-						$new_post = apply_filters('fgm2wc_pre_insert_post', $new_post, $post);
-						
-						$new_post_id = wp_insert_post($new_post);
-						
+						$new_post_id = $this->import_cms_article($post);
 						if ( $new_post_id ) {
-							// Add links between the post and its medias
-							$this->add_post_media($new_post_id, $this->get_attachment_ids($post_media), $post_date, $this->plugin_options['first_image'] != 'as_is');
-							
-							// Add the CMS ID as a post meta in order to modify links after
-							add_post_meta($new_post_id, '_fgm2wc_old_cms_id', $post['page_id'], true);
-							
-							// Increment the CMS last imported post ID
-							update_option('fgm2wc_last_magento_cms_id', $post['page_id']);
-
 							$imported_posts_count++;
-							
+
 							// Hook for doing other actions after inserting the post
-							do_action('fgm2wc_post_insert_post', $new_post_id, $post);
+							do_action('fgm2wc_post_import_cms_article', $new_post_id, $post);
 						}
 					}
 				}
@@ -1205,6 +1157,80 @@ SQL;
 		}
 		
 		/**
+		 * Import a CMS page
+		 * 
+		 * @since 2.4.0
+		 * 
+		 * @param array $post CMS page data
+		 * @return int New post ID
+		 */
+		public function import_cms_article($post) {
+			// Hook for modifying the CMS post before processing
+			$post = apply_filters('fgm2wc_pre_process_post', $post);
+
+			// Date
+			$post_date = $post['creation_time'];
+
+			// Content
+			$content = $post['content'];
+			if ( !empty($post['content_heading']) ) {
+				$content = '<h2>' . $post['content_heading'] . '</h2>' . $content;
+			}
+
+			// Replace Magento media URLs
+			$content = preg_replace('/{{media url="(.*?)"}}/', "media/$1", $content);
+
+			// Medias
+			if ( !$this->plugin_options['skip_media'] ) {
+				// Extra featured image
+				$featured_image = '';
+				list($featured_image, $post) = apply_filters('fgm2wc_pre_import_media', array($featured_image, $post));
+				// Import media
+				$result = $this->import_media_from_content($featured_image . $content, $post_date);
+				$post_media = $result['media'];
+				$this->media_count += $result['media_count'];
+			} else {
+				// Skip media
+				$post_media = array();
+			}
+
+			// Process content
+			$content = $this->process_content($content, $post_media);
+
+			// Status
+			$status = ($post['is_active'] == 1)? 'publish' : 'draft';
+
+			// Insert the post
+			$new_post = array(
+				'post_content'		=> $content,
+				'post_date'			=> $post_date,
+				'post_status'		=> $status,
+				'post_title'		=> $post['title'],
+				'post_name'			=> $post['identifier'],
+				'post_type'			=> $this->post_type,
+				'menu_order'        => $post['sort_order'],
+			);
+
+			// Hook for modifying the WordPress post just before the insert
+			$new_post = apply_filters('fgm2wc_pre_insert_post', $new_post, $post);
+
+			$new_post_id = wp_insert_post($new_post);
+
+			if ( $new_post_id ) {
+				// Add links between the post and its medias
+				$this->add_post_media($new_post_id, $this->get_attachment_ids($post_media), $post_date, $this->plugin_options['first_image'] != 'as_is');
+
+				// Add the CMS ID as a post meta in order to modify links after
+				add_post_meta($new_post_id, '_fgm2wc_old_cms_id', $post['page_id'], true);
+				
+				// Hook for doing other actions after inserting the post
+				do_action('fgm2wc_post_insert_post', $new_post_id, $post);
+			}
+			
+			return $new_post_id;
+		}
+		
+		/**
 		 * Import product categories
 		 *
 		 * @return int Number of product categories imported
@@ -1215,87 +1241,41 @@ SQL;
 			}
 			$this->log(__('Importing product categories...', 'fg-magento-to-woocommerce'));
 			
-			$cat_count = 0;
+			$imported_categories_count = 0;
 			$terms = array();
 			$taxonomy = 'product_cat';
-			$term_metakey = '_fgm2wc_old_product_category_id';
-			$used_slugs = array();
+			$this->used_slugs = array();
 			
 			// Set the list of previously imported categories
-			$this->imported_categories = $this->get_term_metas_by_metakey($term_metakey);
+			$this->get_imported_categories($this->default_language);
 			
 			$categories = $this->get_all_product_categories();
+			$categories_count = count($categories);
 			foreach ( $categories as $category ) {
 				
 				// Check if the category is already imported
-				if ( array_key_exists($category['entity_id'], $this->imported_categories) ) {
+				if ( array_key_exists($category['entity_id'], $this->imported_categories[$this->default_language]) ) {
 					continue; // Do not import already imported category
 				}
 				
-				// Other fields
-				$category = array_merge($category, $this->get_attribute_values($category['entity_id'], $category['entity_type_id'], array(
-					'name',
-					'description',
-					'url_key',
-//					'url_path',
-					'image',
-				)));
-				
-				// Date
-				$date = $category['created_at'];
-				
-				// Slug
-				$slug = isset($category['url_key'])? $category['url_key']: sanitize_title($category['name']);
-				$slug = $this->build_unique_slug($slug, $used_slugs);
-				$used_slugs[] = $slug;
-				
-				// Insert the category
-				$new_category = array(
-					'description'	=> isset($category['description'])? $category['description']: '',
-					'slug'			=> $slug,
-				);
-				
-				// Hook before inserting the category
-				$new_category = apply_filters('fgm2wc_pre_insert_category', $new_category, $category);
-				
-				$new_term = wp_insert_term($category['name'], $taxonomy, $new_category);
+				$new_term = $this->import_product_category($category, $this->default_language);
 				if ( !is_wp_error($new_term) ) {
-					$cat_count++;
+					$imported_categories_count++;
 					$terms[] = $new_term['term_id'];
 					
-					// Store the Magento category ID
-					add_term_meta($new_term['term_id'], $term_metakey, $category['entity_id'], true);
-					
-					// Category ordering
-					if ( function_exists('wc_set_term_order') ) {
-						wc_set_term_order($new_term['term_id'], $category['position'], $taxonomy);
-					}
-					
-					// Category image
-					if ( !$this->plugin_options['skip_media'] && function_exists('update_woocommerce_term_meta') ) {
-						if ( isset($category['image']) && !empty($category['image']) ) {
-							$image_path = '/media/catalog/category/' . $category['image'];
-							$thumbnail_id = $this->import_media($category['name'], $image_path, $date);
-							if ( !empty($thumbnail_id) ) {
-								$this->media_count++;
-								update_woocommerce_term_meta($new_term['term_id'], 'thumbnail_id', $thumbnail_id);
-							}
-						}
-					}
-					
 					// Hook after inserting the category
-					do_action('fgm2wc_post_insert_category', $new_term['term_id'], $category);
+					do_action('fgm2wc_post_import_product_category', $new_term['term_id'], $category);
 				}
 			}
 			
 			// Set the list of imported categories
-			$this->imported_categories = $this->get_term_metas_by_metakey($term_metakey);
+			$this->get_imported_categories($this->default_language);
 			
 			// Update the categories with their parent ids
 			foreach ( $categories as $category ) {
-				if ( array_key_exists($category['entity_id'], $this->imported_categories) && array_key_exists($category['parent_id'], $this->imported_categories) ) {
-					$cat_id = $this->imported_categories[$category['entity_id']];
-					$parent_cat_id = $this->imported_categories[$category['parent_id']];
+				if ( array_key_exists($category['entity_id'], $this->imported_categories[$this->default_language]) && array_key_exists($category['parent_id'], $this->imported_categories[$this->default_language]) ) {
+					$cat_id = $this->imported_categories[$this->default_language][$category['entity_id']];
+					$parent_cat_id = $this->imported_categories[$this->default_language][$category['parent_id']];
 					$cat = get_term_by('term_taxonomy_id', $cat_id, $taxonomy);
 					$parent_cat = get_term_by('term_taxonomy_id', $parent_cat_id, $taxonomy);
 					if ( $cat && $parent_cat ) {
@@ -1309,15 +1289,89 @@ SQL;
 			}
 			
 			// Hook after importing all the categories
-			do_action('fgm2wc_post_import_categories', $categories);
+			do_action('fgm2wc_post_import_product_categories', $categories);
 			
 			// Update cache
 			if ( !empty($terms) ) {
 				wp_update_term_count_now($terms, $taxonomy);
 				$this->clean_cache($terms, $taxonomy);
 			}
-			$this->progressbar->increment_current_count(count($categories));
-			$this->display_admin_notice(sprintf(_n('%d product category imported', '%d product categories imported', $cat_count, 'fg-magento-to-woocommerce'), $cat_count));
+			$this->progressbar->increment_current_count($categories_count);
+			$this->display_admin_notice(sprintf(_n('%d product category imported', '%d product categories imported', $imported_categories_count, 'fg-magento-to-woocommerce'), $imported_categories_count));
+		}
+		
+		/**
+		 * Store the mapping of the imported product categories
+		 * 
+		 * @param int $language Language ID
+		 */
+		public function get_imported_categories($language) {
+			$this->imported_categories[$language] = $this->get_term_metas_by_metakey('_fgm2wc_old_product_category_id' . '-lang' . $language);
+		}
+		
+		/**
+		 * Import a product category
+		 *
+		 * @since 2.4.0
+		 * 
+		 * @param array $category Category
+		 * @return WP_Term|false Category
+		 */
+		public function import_product_category($category, $language) {
+			$taxonomy = 'product_cat';
+			
+			// Other fields
+			$category = array_merge($category, $this->get_attribute_values($category['entity_id'], $category['entity_type_id'], array(
+				'name',
+				'description',
+				'url_key',
+//					'url_path',
+				'image',
+			)));
+
+			// Date
+			$date = $category['created_at'];
+
+			// Slug
+			$slug = isset($category['url_key'])? $category['url_key']: sanitize_title($category['name']);
+			$slug = $this->build_unique_slug($slug, $this->used_slugs);
+			$this->used_slugs[] = $slug;
+
+			// Insert the category
+			$new_category = array(
+				'description'	=> isset($category['description'])? $category['description']: '',
+				'slug'			=> $slug,
+			);
+
+			// Hook before inserting the category
+			$new_category = apply_filters('fgm2wc_pre_insert_product_category', $new_category, $category);
+
+			$new_term = wp_insert_term($category['name'], $taxonomy, $new_category);
+			if ( !is_wp_error($new_term) ) {
+				// Store the product category ID
+				add_term_meta($new_term['term_id'], '_fgm2wc_old_product_category_id' . '-lang' . $language, $category['entity_id'], true);
+				
+				// Category ordering
+				if ( function_exists('wc_set_term_order') ) {
+					wc_set_term_order($new_term['term_id'], $category['position'], $taxonomy);
+				}
+
+				// Category image
+				if ( !$this->plugin_options['skip_media'] && function_exists('update_woocommerce_term_meta') ) {
+					if ( isset($category['image']) && !empty($category['image']) ) {
+						$image_path = '/media/catalog/category/' . $category['image'];
+						$thumbnail_id = $this->import_media($category['name'], $image_path, $date);
+						if ( !empty($thumbnail_id) ) {
+							$this->media_count++;
+							update_woocommerce_term_meta($new_term['term_id'], 'thumbnail_id', $thumbnail_id);
+						}
+					}
+				}
+				
+				// Hook after inserting the category
+				do_action('fgm2wc_post_insert_product_category', $new_term['term_id'], $category);
+			}
+			return $new_term;
 		}
 		
 		/**
@@ -1343,123 +1397,140 @@ SQL;
 				$products = $this->get_products($this->chunks_size);
 				$products_count = count($products);
 				foreach ( $products as $product ) {
-					// Date
-					$date = $product['created_at'];
+					// Increment the Magento last imported product ID
+					update_option('fgm2wc_last_magento_product_id', $product['entity_id']);
 					
-					// Other fields
-					$product = array_merge($product, $this->get_other_product_fields($product['entity_id'], $product['entity_type_id']));
-					
-					// Product images
-					list($product_medias, $post_media) = $this->import_product_medias($product);
-					
-					// Product categories
-					$categories_ids = array();
-					$product_categories = $this->get_product_categories($product['entity_id']);
-					foreach ( $product_categories as $cat ) {
-						if ( array_key_exists($cat, $this->imported_categories) ) {
-							$categories_ids[] = $this->imported_categories[$cat];
-						}
-					}
-					
-					// Process content
-					$content = isset($product['description'])? $product['description'] : '';
-					$content = $this->process_content($content, $post_media);
-					$excerpt = isset($product['short_description'])? $product['short_description'] : '';
-					
-					// Insert the post
-					$new_post = array(
-						'post_content'		=> $content,
-						'post_date'			=> $date,
-						'post_excerpt'		=> $excerpt,
-						'post_status'		=> ($product['status'] == 1)? 'publish': 'draft',
-						'post_title'		=> $product['name'],
-						'post_name'			=> $product['url_key'],
-						'post_type'			=> 'product',
-						'tax_input'			=> array(
-							'product_cat'	=> $categories_ids,
-						),
-					);
-					
-					$new_post_id = wp_insert_post($new_post);
-					
+					$new_post_id = $this->import_product($product, $this->default_language);
 					if ( $new_post_id ) {
 						$imported_products_count++;
 						
-						// Product type
-						$product_type = $this->product_type($product['type_id']);
-						wp_set_object_terms($new_post_id, $product_type, 'product_type', true);
-						
-						// Product galleries
-						$medias_id = array();
-						foreach ($product_medias as $media) {
-							$medias_id[] = $media;
-						}
-						if ( $this->plugin_options['first_image_not_in_gallery'] ) {
-							// Don't include the first image into the product gallery
-							array_shift($medias_id);
-						}
-						$gallery = implode(',', $medias_id);
-						
-						// Prices
-						$regular_price = isset($product['price'])? floatval($product['price']): 0.0;
-						$special_price = isset($product['special_price'])? floatval($product['special_price']): '';
-						if ( $this->plugin_options['price'] == 'with_tax' ) {
-							$regular_price *= $this->global_tax_rate;
-							if ( !empty($special_price) ) {
-								$special_price *= $this->global_tax_rate;
-							}
-						}
-						$price = !empty($special_price)? $special_price: $regular_price;
-						$special_from_date = isset($product['special_from_date'])? strtotime($product['special_from_date']): '';
-						$special_to_date = isset($product['special_to_date'])? strtotime($product['special_to_date']): '';
-						
-						// Stock
-						$manage_stock = 'yes';
-						$stock_status = ($product['is_in_stock'] > 0)? 'instock': 'outofstock';
-						
-						// Backorders
-						$backorders = $this->allow_backorders($product['backorders']);
-						
-						// Add the meta data
-						add_post_meta($new_post_id, '_visibility', 'visible', true);
-						add_post_meta($new_post_id, '_stock_status', $stock_status, true);
-						add_post_meta($new_post_id, '_regular_price', $regular_price, true);
-						add_post_meta($new_post_id, '_price', $price, true);
-						add_post_meta($new_post_id, '_sale_price', $special_price, true);
-						add_post_meta($new_post_id, '_sale_price_dates_from', $special_from_date, true);
-						add_post_meta($new_post_id, '_sale_price_dates_to', $special_to_date, true);
-						add_post_meta($new_post_id, '_featured', 'no', true);
-						if ( isset($product['weight']) ) {
-							add_post_meta($new_post_id, '_weight', floatval($product['weight']), true);
-						}
-						add_post_meta($new_post_id, '_sku', $product['sku'], true);
-						add_post_meta($new_post_id, '_stock', $product['qty'], true);
-						add_post_meta($new_post_id, '_manage_stock', $manage_stock, true);
-						add_post_meta($new_post_id, '_backorders', $backorders, true);
-						add_post_meta($new_post_id, '_product_image_gallery', $gallery, true);
-						
-						// Add links between the post and its medias
-						$this->add_post_media($new_post_id, $product_medias, $date, true);
-						$this->add_post_media($new_post_id, $this->get_attachment_ids($post_media), $date, false);
-						
-						// Add the Magento ID as a post meta
-						add_post_meta($new_post_id, '_fgm2wc_old_product_id', $product['entity_id'], true);
-						
-						// Increment the Magento last imported product ID
-						update_option('fgm2wc_last_magento_product_id', $product['entity_id']);
-						
-						// Hook for doing other actions after inserting the post
-						do_action('fgm2wc_post_insert_product', $new_post_id, $product, $price, $special_price);
+						// Hook for doing other actions after importing the post
+						do_action('fgm2wc_post_import_product', $new_post_id, $product);
 					}
 				}
 				$this->progressbar->increment_current_count($products_count);
 				
 			} while ( ($products != null) && ($products_count > 0) );
 			
+			update_option('fgm2wc_last_update', date('Y-m-d H:i:s'));
+			
 			// Hook for doing other actions after all products are imported
 			do_action('fgm2wc_post_import_products');
 			
 			$this->display_admin_notice(sprintf(_n('%d product imported', '%d products imported', $imported_products_count, 'fg-magento-to-woocommerce'), $imported_products_count));
+		}
+		
+		/**
+		 * Import a product
+		 * 
+		 * @since 2.4.0
+		 * 
+		 * @param array $product Product
+		 * @return int Product ID
+		 */
+		public function import_product($product, $language) {
+			// Date
+			$date = $product['created_at'];
+
+			// Other fields
+			$product = array_merge($product, $this->get_other_product_fields($product['entity_id'], $product['entity_type_id']));
+
+			// Product images
+			list($product_medias, $post_media) = $this->import_product_medias($product);
+
+			// Product categories
+			$categories_ids = array();
+			$product_categories = $this->get_product_categories($product['entity_id']);
+			foreach ( $product_categories as $cat ) {
+				if ( array_key_exists($cat, $this->imported_categories[$language]) ) {
+					$categories_ids[] = $this->imported_categories[$language][$cat];
+				}
+			}
+
+			// Process content
+			$content = isset($product['description'])? $product['description'] : '';
+			$content = $this->process_content($content, $post_media);
+			$excerpt = isset($product['short_description'])? $product['short_description'] : '';
+			
+			$title = isset($product['name'])? $product['name']: '';
+			
+			// Insert the post
+			$new_post = array(
+				'post_content'		=> $content,
+				'post_date'			=> $date,
+				'post_excerpt'		=> $excerpt,
+				'post_status'		=> ($product['status'] == 1)? 'publish': 'draft',
+				'post_title'		=> $title,
+				'post_name'			=> isset($product['url_key'])? $product['url_key'] : $title,
+				'post_type'			=> 'product',
+				'tax_input'			=> array(
+					'product_cat'	=> $categories_ids,
+				),
+			);
+
+			// Hook for modifying the WordPress post just before the insert
+			$new_post = apply_filters('fgm2wc_pre_insert_product', $new_post, $product);
+
+			$new_post_id = wp_insert_post($new_post);
+
+			if ( $new_post_id ) {
+
+				// Product type
+				$product_type = $this->product_type($product['type_id']);
+				wp_set_object_terms($new_post_id, $product_type, 'product_type', true);
+
+				// Product galleries
+				$medias_id = array();
+				foreach ($product_medias as $media) {
+					$medias_id[] = $media;
+				}
+				if ( $this->plugin_options['first_image_not_in_gallery'] ) {
+					// Don't include the first image into the product gallery
+					array_shift($medias_id);
+				}
+				$gallery = implode(',', $medias_id);
+
+				// Prices
+				$prices = $this->calculate_prices($product);
+				$special_from_date = isset($product['special_from_date'])? strtotime($product['special_from_date']): '';
+				$special_to_date = isset($product['special_to_date'])? strtotime($product['special_to_date']): '';
+
+				// Stock
+				$manage_stock = 'yes';
+				$stock_status = ($product['is_in_stock'] > 0)? 'instock': 'outofstock';
+
+				// Backorders
+				$backorders = $this->allow_backorders($product['backorders']);
+
+				// Add the meta data
+				add_post_meta($new_post_id, '_visibility', 'visible', true);
+				add_post_meta($new_post_id, '_stock_status', $stock_status, true);
+				add_post_meta($new_post_id, '_regular_price', $prices['regular_price'], true);
+				add_post_meta($new_post_id, '_price', $prices['price'], true);
+				add_post_meta($new_post_id, '_sale_price', $prices['special_price'], true);
+				add_post_meta($new_post_id, '_sale_price_dates_from', $special_from_date, true);
+				add_post_meta($new_post_id, '_sale_price_dates_to', $special_to_date, true);
+				add_post_meta($new_post_id, '_featured', 'no', true);
+				if ( isset($product['weight']) ) {
+					add_post_meta($new_post_id, '_weight', floatval($product['weight']), true);
+				}
+				add_post_meta($new_post_id, '_sku', $product['sku'], true);
+				add_post_meta($new_post_id, '_stock', $product['qty'], true);
+				add_post_meta($new_post_id, '_manage_stock', $manage_stock, true);
+				add_post_meta($new_post_id, '_backorders', $backorders, true);
+				add_post_meta($new_post_id, '_product_image_gallery', $gallery, true);
+
+				// Add links between the post and its medias
+				$this->add_post_media($new_post_id, $product_medias, $date, true);
+				$this->add_post_media($new_post_id, $this->get_attachment_ids($post_media), $date, false);
+
+				// Add the Magento ID as a post meta
+				add_post_meta($new_post_id, '_fgm2wc_old_product_id', $product['entity_id'], true);
+
+				// Hook for doing other actions after inserting the post
+				do_action('fgm2wc_post_insert_product', $new_post_id, $product, $prices['price'], $prices['special_price']);
+			}
+			return $new_post_id;
 		}
 		
 		/**
@@ -1480,6 +1551,32 @@ SQL;
 					$product_type = $this->product_types['simple'];
 			}
 			return intval($product_type);
+		}
+		
+		/**
+		 * Calculate the product prices
+		 * 
+		 * @since 2.3.0
+		 * 
+		 * @param array $product Product
+		 * @return array Prices
+		 */
+		public function calculate_prices($product) {
+			$regular_price = isset($product['price'])? floatval($product['price']): 0.0;
+			$special_price = isset($product['special_price'])? floatval($product['special_price']): '';
+			if ( $this->plugin_options['price'] == 'with_tax' ) {
+				$regular_price *= $this->global_tax_rate;
+				if ( !empty($special_price) ) {
+					$special_price *= $this->global_tax_rate;
+				}
+			}
+			$prices = array(
+				'regular_price'	=> $regular_price,
+				'special_price'	=> $special_price,
+				'price'			=> !empty($special_price)? $special_price: $regular_price,
+			);
+			
+			return $prices;
 		}
 		
 		/**
@@ -1505,8 +1602,8 @@ SQL;
 				'meta_description',
 				'meta_keyword',
 				'meta_keywords',
-//				'image',
-//				'image_label',
+				'image',
+				'image_label',
 				'status',
 				'url_key',
 //				'url_path',
@@ -1525,7 +1622,20 @@ SQL;
 			$post_media = array();
 			
 			if ( !$this->plugin_options['skip_media'] ) {
-				$images = $this->get_product_images($product['entity_id']);
+				$images = array();
+				
+				// Featured image
+				if ( !empty($product['image']) ) {
+					$featured_image = array(
+						'value_id'	=> 0,
+						'value'		=> $product['image'],
+						'label'		=> isset($product['image_label'])? $product['image_label']: '',
+					);
+					$images[] = $featured_image;
+				}
+				
+				// Gallery images
+				$images = array_merge($images, $this->get_product_images($product['entity_id']));
 				foreach ( $images as $image ) {
 					$image_name = !empty($image['label'])? $image['label'] : $product['name'] . '-' . $image['value_id'];
 					$image_filename = '/media/catalog/product' . $image['value'];
@@ -1553,6 +1663,7 @@ SQL;
 		 */
 		private function build_unique_slug($slug, $used_slugs) {
 			$matches = array();
+			$slug = apply_filters('fgm2wc_pre_build_unique_slug', $slug);
 			$slug = sanitize_title($slug);
 			if ( in_array($slug, $used_slugs) ) {
 				// Get the slug suffix
@@ -1592,9 +1703,10 @@ SQL;
 				$content_heading_field = '"" AS content_heading';
 			}
 			$sql = "
-				SELECT a.page_id, a.title, a.meta_keywords, a.meta_description, a.identifier, $content_heading_field, a.content, a.creation_time, a.is_active, a.sort_order
+				SELECT DISTINCT a.page_id, a.title, a.meta_keywords, a.meta_description, a.identifier, $content_heading_field, a.content, a.creation_time, a.is_active, a.sort_order
 				$extra_cols
 				FROM ${prefix}cms_page a
+				INNER JOIN ${prefix}cms_page_store s ON s.page_id = a.page_id AND s.store_id IN (0, {$this->store_id})
 				WHERE a.page_id > '$last_magento_cms_id'
 				$extra_joins
 				ORDER BY a.sort_order
@@ -1670,7 +1782,8 @@ SQL;
 				";
 				if ( $this->column_exists("${entity_type_code}_entity_$attribute_type", 'store_id') ) {
 					$sql .= "
-						AND e.store_id = 0
+						AND e.store_id IN (0, {$this->store_id})
+						ORDER BY e.store_id
 					";
 				}
 				$result = $this->magento_query($sql);
@@ -1731,11 +1844,12 @@ SQL;
 			$prefix = $this->plugin_options['prefix'];
 
 			$sql = "
-				SELECT g.value_id, g.value, gv.label
+				SELECT DISTINCT g.value_id, g.value, gv.label
 				FROM ${prefix}catalog_product_entity_media_gallery g
 				INNER JOIN ${prefix}catalog_product_entity_media_gallery_value gv ON gv.value_id = g.value_id
 				WHERE g.entity_id = '$product_id'
-				AND gv.store_id = 0
+				AND gv.store_id IN (0, {$this->store_id})
+				AND gv.disabled = 0
 				ORDER BY gv.position
 			";
 			$images = $this->magento_query($sql);
@@ -2272,68 +2386,6 @@ SQL;
 		}
 
 		/**
-		 * Returns the imported posts mapped with their Magento ID
-		 *
-		 * @return array of post IDs [magento_article_id => wordpress_post_id]
-		 */
-		public function get_imported_magento_posts() {
-			global $wpdb;
-			$posts = array();
-
-			$sql = "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_fgm2wc_old_cms_id'";
-			$results = $wpdb->get_results($sql);
-			foreach ( $results as $result ) {
-				$posts[$result->meta_value] = $result->post_id;
-			}
-			ksort($posts);
-			return $posts;
-		}
-
-		/**
-		 * Returns the imported categories mapped with their Magento ID
-		 *
-		 * @return array of category IDs [magento_category_id => wordpress_category_id]
-		 */
-		public function get_imported_magento_categories() {
-			global $wpdb;
-			$categories = array();
-			$matches = array();
-
-			$sql = "SELECT term_id, slug FROM {$wpdb->terms} WHERE slug LIKE 'c%'";
-			$results = $wpdb->get_results($sql);
-			foreach ( $results as $result ) {
-				if ( preg_match("/^c(\d+)-/", $result->slug, $matches) ) {
-					$cat_id = $matches[1];
-					$categories[$cat_id] = $result->term_id;
-				}
-			}
-			ksort($categories);
-			return $categories;
-		}
-
-		/**
-		 * Returns the imported sections mapped with their Magento ID
-		 *
-		 * @return array of section IDs [magento_section_id => wordpress_category_id]
-		 */
-		public function get_imported_magento_sections() {
-			global $wpdb;
-			$sections = array();
-			$matches = array();
-
-			$sql = "SELECT term_id, slug FROM {$wpdb->terms} WHERE slug LIKE 's%'";
-			$results = $wpdb->get_results($sql);
-			foreach ( $results as $result ) {
-				if ( preg_match("/^s(\d+)-/", $result->slug, $matches) ) {
-					$section_id = $matches[1];
-					$sections[$section_id] = $result->term_id;
-				}
-			}
-			ksort($sections);
-			return $sections;
-		}
-
-		/**
 		 * Returns the imported products mapped with their Magento ID
 		 *
 		 * @since      1.10.0
@@ -2427,6 +2479,36 @@ SQL;
 		}
 
 		/**
+		 * Returns the imported product ID corresponding to a Magento ID
+		 *
+		 * @since 2.3.0
+		 * 
+		 * @param int $magento_id Magento article ID
+		 * @return int WordPress product ID
+		 */
+		public function get_wp_product_id_from_magento_id($magento_id) {
+			$product_id = $this->get_wp_post_id_from_meta('_fgm2wc_old_product_id', $magento_id);
+			return $product_id;
+		}
+
+		/**
+		 * Returns the imported post ID corresponding to a meta key and value
+		 *
+		 * @since 2.3.0
+		 * 
+		 * @param string $meta_key Meta key
+		 * @param string $meta_value Meta value
+		 * @return int WordPress post ID
+		 */
+		public function get_wp_post_id_from_meta($meta_key, $meta_value) {
+			global $wpdb;
+
+			$sql = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '$meta_key' AND meta_value = '$meta_value' LIMIT 1";
+			$post_id = $wpdb->get_var($sql);
+			return $post_id;
+		}
+
+		/**
 		 * Get all the term metas corresponding to a meta key
 		 * 
 		 * @param string $meta_key Meta key
@@ -2437,6 +2519,25 @@ SQL;
 			$metas = array();
 			
 			$sql = "SELECT term_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key = '$meta_key'";
+			$results = $wpdb->get_results($sql);
+			foreach ( $results as $result ) {
+				$metas[$result->meta_value] = $result->term_id;
+			}
+			ksort($metas);
+			return $metas;
+		}
+		
+		/**
+		 * Get all the term metas corresponding to a meta key
+		 * 
+		 * @param string $meta_key Meta key
+		 * @return array List of term metas: term_id => meta_value
+		 */
+		public function get_term_metas_by_metakey_like($meta_key) {
+			global $wpdb;
+			$metas = array();
+			
+			$sql = "SELECT term_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key LIKE '$meta_key'";
 			$results = $wpdb->get_results($sql);
 			foreach ( $results as $result ) {
 				$metas[$result->meta_value] = $result->term_id;

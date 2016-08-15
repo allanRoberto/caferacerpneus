@@ -1,0 +1,186 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "WooCommerce Parcelas"
+msgstr ""
+
+#. Screenshot description.
+msgid "Tela de configuração (Geral)"
+msgstr ""
+
+#. Screenshot description.
+msgid "Tela de configuração (Posição)"
+msgstr ""
+
+#. Screenshot description.
+msgid "Páginas que listam os produtos (frontend)"
+msgstr ""
+
+#. Screenshot description.
+msgid "Página indivudual do produto (frontend)"
+msgstr ""
+
+#. Screenshot description.
+msgid "Página indivudual do produto (backend)"
+msgstr ""
+
+#. Found in description list item.
+msgid "Prefixo;"
+msgstr ""
+
+#. Found in description list item.
+msgid "Quantidade de parcelas;"
+msgstr ""
+
+#. Found in description list item.
+msgid "Sufixo;"
+msgstr ""
+
+#. Found in description list item.
+msgid "Valor mínimo da parcela."
+msgstr ""
+
+#. Found in description list item.
+msgid "Valor do desconto;"
+msgstr ""
+
+#. Found in description list item.
+msgid "Tipo do desconto (% ou fixo);"
+msgstr ""
+
+#. Found in description list item.
+msgid "É possível desabilitar o preço à vista e/ou o preço parcelado em qualquer produto, individualmente."
+msgstr ""
+
+#. Found in description list item.
+msgid "Posicão e alinhamento dessas informações dentro das páginas;"
+msgstr ""
+
+#. Found in description list item.
+msgid "Estilizar as informações de parcelamento e de pagamento à vista, separadamente e por página."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Com este plugin é possível adicionar informações sobre preço parcelado e/ou preço para pagamento à vista, nas páginas que listam todos os produtos e na página individual de cada produto."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Possui uma página de opções em \"WooCommerce\" &gt; \"Parcelas\" onde é possível definir:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "As imagens falam por si mesmas: <a href=\"https://wordpress.org/plugins/woocommerce-parcelas/screenshots/\">WooCommerce Parcelas Screenshots</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "<strong>Compatível, também, com produto variável e agrupado.</strong>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Faça o upload do plugin através do painel do WordPress, indo em \"Plugins\" &gt; \"Adicionar Novo\";"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Ative o plugin indo até o menu \"Plugins\";"
+msgstr ""
+
+#. Found in installation list item.
+msgid "Habilite a funcionalidade do plugin e defina suas opções em \"WooCommerce\" &gt; \"Parcelas\"."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Corrigido bug que impedia o preço à vista de ser mostrado, em produtos variáveis com preços diferentes, caso o parcelamento estivesse desativado."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adicionada opção para desabilitar o preço parcelado em produtos específicos."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adicionada opção para mudar a posição de alinhamento (centralizar) das informações."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adicionada sessão com opções que possibilitam a estilização/formatação das informações."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Corrigida URL do botão 'Bugs e Sugestões'"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Adicionada opção para desabilitar o preço à vista em produtos específicos."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Corrigido compatibilidade com produto agrupado. Adicionada opção para definir a posição do preço parcelado e à vista. Adicionada opção para definir um valor de desconto para pagamentos à vista."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Settings link below plugin name was fixed."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Minimum value, with comma, wasn't working in variable product."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Some improvements habe been mave in code."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Some bugs were fixed. Some actions were added. One filter was added. Better css classes were added."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "js code was fixed to work correctly when decimal separator is point."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fully compatible with variable product."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Translated to english."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Installment minimum value field added."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Prefix and suffix fields added."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Plugin release."
+msgstr ""
+
+#. Found in faq header.
+msgid "Funciona com o ponto como separador decimal?"
+msgstr ""
+
+#. Found in faq header.
+msgid "Funciona com produto variável e agrupado?"
+msgstr ""
+
+#. Found in faq header.
+msgid "É possível definir um preço para pagamento à vista (boleto)?"
+msgstr ""
+
+#. Found in faq header.
+msgid "Quero adicionar juros, é possível?"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Sim."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Ainda não, talvez, em breve..."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "<a href=\"http://filipecsweb.com.br/contato\">Bugs e Sugestões</a>"
+msgstr ""
