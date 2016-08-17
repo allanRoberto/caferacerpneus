@@ -1,5 +1,4 @@
  <?php 
-
   function get_rating_html( $rating = null ) {
     $rating_html = '';
 
