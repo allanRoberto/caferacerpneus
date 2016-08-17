@@ -1,5 +1,4 @@
- <?php 
-  function get_rating_html( $rating = null ) {
+ <?php function get_rating_html( $rating = null ) {
     $rating_html = '';
 
     if ( ! is_numeric( $rating ) ) {
@@ -17,5 +16,3 @@
 
     return apply_filters( 'woocommerce_product_get_rating_html', $rating_html, $rating );
   }
-
-?>
