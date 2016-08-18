@@ -120,7 +120,7 @@ namespace :db do
       if "#{stage}" == "prod"
         search = "caferacerpneus.com.br"
       else
-        search = "#{application}.artezzo.com.br"
+        search = "demo.caferacerpneus.com.br"
       end
       replace = local_domain
       puts "searching (#{search}) and replacing (#{replace}) domain information"
@@ -146,7 +146,7 @@ namespace :db do
       if "#{stage}" == "prod"
         replace = "caferacerpneus.com.br" 
       else
-        replace = "#{application}.artezzo.com.br"
+        replace = "demo.caferacerpneus.com.br"
       end
       search = local_domain
       puts "searching (#{search}) and replacing (#{replace}) domain information"
