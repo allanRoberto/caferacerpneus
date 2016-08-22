@@ -463,6 +463,12 @@ body.woocommerce div.product .woocommerce-tabs ul.tabs li, body.woocommerce #con
   background: #fff;
 }
 
+.archive .container {
+  padding-top : 58px !important;
+}
+.archive #left-area {
+  width : 79.125%;
+}
 #left-area {
   width: 100%;
 }

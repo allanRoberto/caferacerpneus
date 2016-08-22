@@ -20,23 +20,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header( 'shop' ); ?>
-<div class="et_pb_section et_pb_fullwidth_section  et_pb_section_0 et_section_regular et_pb_section_first">
-					<section class="et_pb_fullwidth_header et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_fullwidth_header_0" style="padding-top: 246px;">
-				
-				<div class="et_pb_fullwidth_header_container left">
-					<div class="header-content-container center">
-					<div class="header-content">
+	    global $wp_query;
+	    $cat = $wp_query->get_queried_object();
+	    $thumbnail_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
+	    $name_cat = $cat->name;
+ 	    $image = wp_get_attachment_url( $thumbnail_id );
 
-					</div>
+get_header( 'shop' ); ?>
+<div class="et_pb_section et_pb_fullwidth_section  et_pb_section_0 et_section_regular et_pb_section_first" style="padding-top: 140px;">
+	<section class="et_pb_fullwidth_header et_pb_module et_pb_bg_layout_light et_pb_text_align_left  et_pb_fullwidth_header_0" style="padding-top: 246px; background : url('<?php echo $image;?>') center top no-repeat;">
+			<div class="et_pb_fullwidth_header_container left">
+				<div class="header-content-container center">
 				</div>
-					
-				</div>
-				<div class="et_pb_fullwidth_header_overlay"></div>
-				<div class="et_pb_fullwidth_header_scroll"></div>
-			</section>
-				
 			</div>
+	</section>
+</div>
 
 
 	<?php
